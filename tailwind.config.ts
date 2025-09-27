@@ -13,6 +13,10 @@ export default {
       },
     },
     extend: {
+      fontFamily: {
+        inter: ['Inter', 'sans-serif'],
+        orbitron: ['Orbitron', 'monospace'],
+      },
       colors: {
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
@@ -22,6 +26,7 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
+          glow: "hsl(var(--primary-glow))",
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",
@@ -56,6 +61,16 @@ export default {
           "accent-foreground": "hsl(var(--sidebar-accent-foreground))",
           border: "hsl(var(--sidebar-border))",
           ring: "hsl(var(--sidebar-ring))",
+        },
+        performance: {
+          excellent: "hsl(var(--performance-excellent))",
+          good: "hsl(var(--performance-good))",
+          average: "hsl(var(--performance-average))",
+          poor: "hsl(var(--performance-poor))",
+        },
+        winner: {
+          DEFAULT: "hsl(var(--winner-gold))",
+          glow: "hsl(var(--winner-glow))",
         },
       },
       borderRadius: {
