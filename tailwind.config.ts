@@ -72,6 +72,11 @@ export default {
           DEFAULT: "hsl(var(--winner-gold))",
           glow: "hsl(var(--winner-glow))",
         },
+        payment: {
+          paid: "hsl(var(--payment-paid))",
+          partial: "hsl(var(--payment-partial))",
+          overdue: "hsl(var(--payment-overdue))",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

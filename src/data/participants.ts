@@ -7,7 +7,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Kalambwanda",
@@ -15,7 +17,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Dr. Naisi",
@@ -23,7 +27,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Destroyers",
@@ -31,7 +37,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Wakudumu Tutadumu",
@@ -39,7 +47,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "The Gladiators",
@@ -47,7 +57,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Zesko",
@@ -55,7 +67,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "@Well",
@@ -63,7 +77,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Gobo Fc",
@@ -71,7 +87,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Not in tittle race",
@@ -79,7 +97,9 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   },
   {
     manager: "Bongo Boys",
@@ -87,6 +107,8 @@ export const initialParticipants: Player[] = [
     transferPoints: 0,
     netPoints: 0,
     wins: 0,
-    gameweekHistory: []
+    gameweekHistory: [],
+    amountPaid: 0,
+    gameweeksPaid: 0
   }
 ];

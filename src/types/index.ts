@@ -5,6 +5,8 @@ export interface Player {
   netPoints: number;
   wins: number;
   gameweekHistory: GameweekData[];
+  amountPaid: number;
+  gameweeksPaid: number;
 }
 
 export interface GameweekData {

@@ -1,8 +1,9 @@
 import { useState } from 'react';
-import { Trophy, Settings, BarChart3, Users } from 'lucide-react';
+import { Trophy, Settings, BarChart3, Users, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PlayerCard } from '@/components/PlayerCard';
+import { PaymentCard } from '@/components/PaymentCard';
 import { GameweekForm } from '@/components/GameweekForm';
 import { Leaderboard } from '@/components/Leaderboard';
 import { WinnerCard } from '@/components/WinnerCard';
@@ -32,6 +33,20 @@ const Index = () => {
   };
 
   const winner = getCurrentGameweekWinner();
+
+  const handlePaymentUpdate = (manager: string, amount: number) => {
+    setPlayers(prevPlayers => 
+      prevPlayers.map(player => 
+        player.manager === manager 
+          ? { 
+              ...player, 
+              amountPaid: player.amountPaid + amount,
+              gameweeksPaid: Math.floor((player.amountPaid + amount) / 100)
+            }
+          : player
+      )
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -69,10 +84,14 @@ const Index = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="players" className="w-full">
-          <TabsList className="grid w-full grid-cols-3">
+          <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="players" className="gap-2">
               <Users className="w-4 h-4" />
               Players
+            </TabsTrigger>
+            <TabsTrigger value="payments" className="gap-2">
+              <CreditCard className="w-4 h-4" />
+              Payments
             </TabsTrigger>
             <TabsTrigger value="leaderboard" className="gap-2">
               <BarChart3 className="w-4 h-4" />
@@ -102,6 +121,24 @@ const Index = () => {
                     isWinner={winner?.manager === player.manager}
                   />
                 ))}
+            </div>
+          </TabsContent>
+
+          {/* Payments */}
+          <TabsContent value="payments" className="space-y-6">
+            <div className="flex items-center justify-between">
+              <h2 className="font-orbitron text-2xl font-bold">Payment Management</h2>
+              <p className="text-muted-foreground">KSh 100 per gameweek • Total: KSh 3,800</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {players.map((player) => (
+                <PaymentCard
+                  key={player.manager}
+                  player={player}
+                  onUpdatePayment={handlePaymentUpdate}
+                />
+              ))}
             </div>
           </TabsContent>
 
