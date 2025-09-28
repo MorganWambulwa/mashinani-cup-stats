@@ -69,7 +69,7 @@ export const WinnerCard = ({ players, currentGameweek }: WinnerCardProps) => {
               style={{
                 left: `${Math.random() * 100}%`,
                 animationDelay: `${Math.random() * 3}s`,
-                backgroundColor: ['hsl(45 95% 60%)', 'hsl(120 55% 45%)', 'hsl(280 85% 60%)'][i % 3]
+                backgroundColor: ['hsl(40 70% 60%)', 'hsl(35 65% 55%)', 'hsl(45 75% 65%)'][i % 3]
               }}
             />
           ))}
