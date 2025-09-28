@@ -58,7 +58,7 @@ export const WinnerCard = ({ players, currentGameweek }: WinnerCardProps) => {
   const winnerGWData = winner.gameweekHistory.find(gw => gw.gameweek === currentGameweek);
 
   return (
-    <Card className="relative overflow-hidden winner-pulse bg-gradient-to-br from-winner to-winner-glow border-winner">
+    <Card className="relative overflow-hidden winner-pulse winner-drop bg-gradient-to-br from-winner to-winner-glow border-winner">
       {/* Confetti Animation */}
       {showConfetti && (
         <div className="absolute inset-0 pointer-events-none">

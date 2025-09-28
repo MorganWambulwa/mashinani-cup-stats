@@ -48,6 +48,10 @@ const Index = () => {
     );
   };
 
+  const handleDeleteManager = (manager: string) => {
+    setPlayers(prevPlayers => prevPlayers.filter(player => player.manager !== manager));
+  };
+
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
@@ -174,7 +178,11 @@ const Index = () => {
               </div>
             </div>
             
-            <GameweekForm players={players} onUpdatePlayers={setPlayers} />
+            <GameweekForm 
+              players={players} 
+              onUpdatePlayers={setPlayers} 
+              onDeleteManager={handleDeleteManager}
+            />
           </TabsContent>
         </Tabs>
 

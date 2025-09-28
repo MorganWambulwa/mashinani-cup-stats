@@ -11,9 +11,10 @@ import { toast } from 'sonner';
 interface GameweekFormProps {
   players: Player[];
   onUpdatePlayers: (players: Player[]) => void;
+  onDeleteManager: (manager: string) => void;
 }
 
-export const GameweekForm = ({ players, onUpdatePlayers }: GameweekFormProps) => {
+export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: GameweekFormProps) => {
   const [selectedGameweek, setSelectedGameweek] = useState<number>(1);
   const [gameweekData, setGameweekData] = useState<Record<string, { points: number; transferPoints: number }>>({});
 
