@@ -69,7 +69,7 @@ export default {
           poor: "hsl(var(--performance-poor))",
         },
         winner: {
-          DEFAULT: "hsl(var(--winner-gold))",
+          DEFAULT: "hsl(var(--winner))",
           glow: "hsl(var(--winner-glow))",
         },
         payment: {
