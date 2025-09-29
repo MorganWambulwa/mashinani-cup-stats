@@ -71,6 +71,7 @@ export default {
         winner: {
           DEFAULT: "hsl(var(--winner))",
           glow: "hsl(var(--winner-glow))",
+          gold: "hsl(var(--winner-gold))",
         },
         payment: {
           paid: "hsl(var(--payment-paid))",
