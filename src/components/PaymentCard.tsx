@@ -8,6 +8,7 @@ import { Input } from '@/components/ui/input';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Label } from '@/components/ui/label';
 import { useToast } from '@/components/ui/use-toast';
+import { supabase } from '@/integrations/supabase/client';
 
 interface PaymentCardProps {
   player: Player;
@@ -18,7 +19,6 @@ export const PaymentCard = ({ player, onUpdatePayment }: PaymentCardProps) => {
   const [isPaymentDialogOpen, setIsPaymentDialogOpen] = useState(false);
   const [phoneNumber, setPhoneNumber] = useState('');
   const [amount, setAmount] = useState('100');
-  const [pin, setPin] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const { toast } = useToast();
 
@@ -47,19 +47,21 @@ export const PaymentCard = ({ player, onUpdatePayment }: PaymentCardProps) => {
   };
 
   const handleMpesaPayment = async () => {
-    if (!phoneNumber || !amount || !pin) {
+    if (!phoneNumber || !amount) {
       toast({
         title: "Missing Information",
-        description: "Please fill in all required fields",
+        description: "Please fill in phone number and amount",
         variant: "destructive",
       });
       return;
     }
 
-    if (pin !== '1234') {
+    // Validate phone number format
+    const phoneRegex = /^(254|0)[0-9]{9}$/;
+    if (!phoneRegex.test(phoneNumber.replace(/\s/g, ''))) {
       toast({
-        title: "Invalid PIN",
-        description: "Incorrect PIN entered",
+        title: "Invalid Phone Number",
+        description: "Please enter a valid Kenyan phone number (e.g., 254700000000 or 0700000000)",
         variant: "destructive",
       });
       return;
@@ -67,20 +69,61 @@ export const PaymentCard = ({ player, onUpdatePayment }: PaymentCardProps) => {
 
     setIsProcessing(true);
 
-    // Simulate payment processing
-    setTimeout(() => {
-      const paymentAmount = parseInt(amount);
-      onUpdatePayment(player.manager, paymentAmount);
-      
-      toast({
-        title: "Payment Successful",
-        description: `KSh ${paymentAmount} paid successfully via M-Pesa`,
+    try {
+      // Call M-Pesa STK Push edge function
+      const { data, error } = await supabase.functions.invoke('mpesa-stk-push', {
+        body: {
+          phoneNumber: phoneNumber,
+          amount: parseInt(amount),
+          managerName: player.manager,
+        },
       });
 
-      setIsPaymentDialogOpen(false);
-      setPin('');
+      if (error) {
+        console.error('STK Push error:', error);
+        toast({
+          title: "Payment Failed",
+          description: error.message || "Failed to initiate payment. Please try again.",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      if (data.success) {
+        toast({
+          title: "Payment Initiated",
+          description: "Check your phone for M-Pesa prompt to complete payment",
+        });
+
+        // For demo purposes, simulate successful payment after 5 seconds
+        setTimeout(() => {
+          const paymentAmount = parseInt(amount);
+          onUpdatePayment(player.manager, paymentAmount);
+          
+          toast({
+            title: "Payment Successful",
+            description: `KSh ${paymentAmount} paid successfully via M-Pesa`,
+          });
+        }, 5000);
+
+        setIsPaymentDialogOpen(false);
+      } else {
+        toast({
+          title: "Payment Failed",
+          description: data.error || "Failed to initiate payment",
+          variant: "destructive",
+        });
+      }
+    } catch (error: any) {
+      console.error('Payment error:', error);
+      toast({
+        title: "Payment Failed",
+        description: "An error occurred while processing payment",
+        variant: "destructive",
+      });
+    } finally {
       setIsProcessing(false);
-    }, 2000);
+    }
   };
 
   return (
@@ -156,28 +199,17 @@ export const PaymentCard = ({ player, onUpdatePayment }: PaymentCardProps) => {
                 </p>
               </div>
               
-              <div className="space-y-2">
-                <Label htmlFor="pin">M-Pesa PIN</Label>
-                <Input
-                  id="pin"
-                  type="password"
-                  placeholder="Enter PIN"
-                  value={pin}
-                  onChange={(e) => setPin(e.target.value)}
-                  maxLength={4}
-                />
-                <p className="text-xs text-muted-foreground">
-                  Sandbox PIN: 1234
-                </p>
-              </div>
-              
               <Button 
                 onClick={handleMpesaPayment} 
                 disabled={isProcessing}
                 className="w-full"
               >
-                {isProcessing ? 'Processing...' : `Pay KSh ${amount}`}
+                {isProcessing ? 'Sending to your phone...' : `Pay KSh ${amount}`}
               </Button>
+              
+              <p className="text-xs text-muted-foreground text-center">
+                You will receive an M-Pesa prompt on your phone to complete the payment
+              </p>
             </div>
           </DialogContent>
         </Dialog>
