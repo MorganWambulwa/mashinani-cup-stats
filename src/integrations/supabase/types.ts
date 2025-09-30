@@ -14,7 +14,125 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      league_seasons: {
+        Row: {
+          created_at: string
+          end_date: string
+          id: string
+          is_active: boolean
+          name: string
+          start_date: string
+          total_prize_pool: number
+        }
+        Insert: {
+          created_at?: string
+          end_date: string
+          id?: string
+          is_active?: boolean
+          name: string
+          start_date: string
+          total_prize_pool?: number
+        }
+        Update: {
+          created_at?: string
+          end_date?: string
+          id?: string
+          is_active?: boolean
+          name?: string
+          start_date?: string
+          total_prize_pool?: number
+        }
+        Relationships: []
+      }
+      payments: {
+        Row: {
+          amount: number
+          checkout_request_id: string | null
+          completed_at: string | null
+          created_at: string
+          id: string
+          manager_name: string
+          mpesa_receipt_number: string | null
+          mpesa_transaction_id: string | null
+          phone_number: string
+          status: string
+          transaction_desc: string | null
+        }
+        Insert: {
+          amount: number
+          checkout_request_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          manager_name: string
+          mpesa_receipt_number?: string | null
+          mpesa_transaction_id?: string | null
+          phone_number: string
+          status?: string
+          transaction_desc?: string | null
+        }
+        Update: {
+          amount?: number
+          checkout_request_id?: string | null
+          completed_at?: string | null
+          created_at?: string
+          id?: string
+          manager_name?: string
+          mpesa_receipt_number?: string | null
+          mpesa_transaction_id?: string | null
+          phone_number?: string
+          status?: string
+          transaction_desc?: string | null
+        }
+        Relationships: []
+      }
+      winners: {
+        Row: {
+          created_at: string
+          gameweek: number | null
+          id: string
+          manager_name: string
+          paid_at: string | null
+          payout_status: string
+          payout_transaction_id: string | null
+          prize_amount: number
+          prize_type: string
+          season_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          gameweek?: number | null
+          id?: string
+          manager_name: string
+          paid_at?: string | null
+          payout_status?: string
+          payout_transaction_id?: string | null
+          prize_amount: number
+          prize_type: string
+          season_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          gameweek?: number | null
+          id?: string
+          manager_name?: string
+          paid_at?: string | null
+          payout_status?: string
+          payout_transaction_id?: string | null
+          prize_amount?: number
+          prize_type?: string
+          season_id?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "winners_season_id_fkey"
+            columns: ["season_id"]
+            isOneToOne: false
+            referencedRelation: "league_seasons"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never

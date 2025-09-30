@@ -1,4 +1,5 @@
 import { serve } from "https://deno.land/std@0.190.0/http/server.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -61,7 +62,7 @@ const handler = async (req: Request): Promise<Response> => {
 
     // M-Pesa API Configuration (Sandbox)
     const shortCode = '174379';
-    const callbackUrl = 'https://your-app.com/mpesa-callback'; // You'll need to set this to your actual callback URL
+    const callbackUrl = 'https://ypefwjucpyrkkhzujrbm.supabase.co/functions/v1/mpesa-callback';
     
     // Step 1: Get OAuth token
     const auth = btoa(`${consumerKey}:${consumerSecret}`);
@@ -129,6 +130,25 @@ const handler = async (req: Request): Promise<Response> => {
 
     if (stkData.ResponseCode === '0') {
       // Success - STK push sent to user's phone
+      // Store payment record in database
+      const supabaseUrl = Deno.env.get('SUPABASE_URL')!;
+      const supabaseKey = Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!;
+      const supabase = createClient(supabaseUrl, supabaseKey);
+      
+      const { error: insertError } = await supabase
+        .from('payments')
+        .insert({
+          manager_name: managerName,
+          phone_number: formattedPhone,
+          amount: parseFloat(amount.toString()),
+          checkout_request_id: stkData.CheckoutRequestID,
+          status: 'pending'
+        });
+      
+      if (insertError) {
+        console.error('Error storing payment record:', insertError);
+      }
+
       return new Response(
         JSON.stringify({
           success: true,

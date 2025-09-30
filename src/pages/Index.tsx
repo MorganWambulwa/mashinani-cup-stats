@@ -4,6 +4,8 @@ import { Button } from '@/components/ui/button';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { PlayerCard } from '@/components/PlayerCard';
 import { PaymentCard } from '@/components/PaymentCard';
+import { PaymentHistory } from '@/components/PaymentHistory';
+import { PrizePool } from '@/components/PrizePool';
 import { GameweekForm } from '@/components/GameweekForm';
 import { Leaderboard } from '@/components/Leaderboard';
 import { WinnerCard } from '@/components/WinnerCard';
@@ -133,6 +135,11 @@ const Index = () => {
             <div className="flex items-center justify-between">
               <h2 className="font-orbitron text-2xl font-bold">Payment Management</h2>
               <p className="text-muted-foreground">KSh 100 per gameweek • Total: KSh 3,800</p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+              <PrizePool />
+              <PaymentHistory />
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
