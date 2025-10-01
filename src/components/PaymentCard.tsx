@@ -127,42 +127,44 @@ export const PaymentCard = ({ player, onUpdatePayment }: PaymentCardProps) => {
   };
 
   return (
-    <Card className="p-4 hover-lift">
-      <div className="flex items-center justify-between mb-3">
-        <div className="flex items-center gap-3">
-          <div className={`w-3 h-3 rounded-full ${getStatusColor()}`} />
-          <h3 className="font-semibold text-sm">{player.manager}</h3>
+    <Card className="p-3 sm:p-4 hover-lift">
+      <div className="flex items-center justify-between mb-2 sm:mb-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
+          <div className={`w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full flex-shrink-0 ${getStatusColor()}`} />
+          <h3 className="font-semibold text-xs sm:text-sm truncate">{player.manager}</h3>
         </div>
-        {getStatusIcon()}
+        <div className="flex-shrink-0">
+          {getStatusIcon()}
+        </div>
       </div>
 
-      <div className="space-y-2 mb-4">
-        <div className="flex justify-between text-sm">
+      <div className="space-y-1.5 sm:space-y-2 mb-3 sm:mb-4">
+        <div className="flex justify-between text-xs sm:text-sm">
           <span className="text-muted-foreground">Amount Paid</span>
           <span className="font-semibold">KSh {player.amountPaid.toLocaleString()}</span>
         </div>
-        <div className="flex justify-between text-sm">
+        <div className="flex justify-between text-xs sm:text-sm">
           <span className="text-muted-foreground">Gameweeks Paid</span>
           <span className="font-semibold">{player.gameweeksPaid}/38</span>
         </div>
-        <div className="w-full bg-secondary rounded-full h-2">
+        <div className="w-full bg-secondary rounded-full h-1.5 sm:h-2">
           <div 
-            className={`h-2 rounded-full transition-all duration-1000 ${getStatusColor()}`}
+            className={`h-1.5 sm:h-2 rounded-full transition-all duration-1000 ${getStatusColor()}`}
             style={{ width: `${Math.min((player.gameweeksPaid / 38) * 100, 100)}%` }}
           />
         </div>
       </div>
 
-      <div className="flex items-center justify-between">
-        <Badge variant={getPaymentStatus() === 'paid' ? 'default' : 'secondary'}>
-          {getPaymentStatus() === 'paid' ? 'Fully Paid' : 
-           getPaymentStatus() === 'partial' ? 'Partial' : 'Outstanding'}
+      <div className="flex items-center justify-between gap-2">
+        <Badge variant={getPaymentStatus() === 'paid' ? 'default' : 'secondary'} className="text-xs">
+          {getPaymentStatus() === 'paid' ? 'Paid' : 
+           getPaymentStatus() === 'partial' ? 'Partial' : 'Due'}
         </Badge>
 
         <Dialog open={isPaymentDialogOpen} onOpenChange={setIsPaymentDialogOpen}>
           <DialogTrigger asChild>
-            <Button size="sm" variant="outline" className="gap-2">
-              <Banknote className="w-4 h-4" />
+            <Button size="sm" variant="outline" className="gap-1 sm:gap-2 text-xs sm:text-sm h-8">
+              <Banknote className="w-3 h-3 sm:w-4 sm:h-4" />
               Pay
             </Button>
           </DialogTrigger>

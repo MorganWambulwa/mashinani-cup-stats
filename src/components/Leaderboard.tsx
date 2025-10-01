@@ -75,36 +75,36 @@ export const Leaderboard = ({ players }: LeaderboardProps) => {
             return (
               <div
                 key={player.manager}
-                className={`flex items-center gap-4 p-4 rounded-lg border transition-all duration-300 hover-lift ${getPositionGradient(position)}`}
+                className={`flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-lg border transition-all duration-300 hover-lift ${getPositionGradient(position)}`}
               >
-                <div className="flex items-center gap-3">
+                <div className="flex items-center gap-3 min-w-0 flex-1">
                   {getPositionIcon(position)}
-                  <div className="flex-1">
-                    <h3 className="font-semibold line-clamp-1">{player.manager}</h3>
-                    <div className="text-sm text-muted-foreground">
+                  <div className="flex-1 min-w-0">
+                    <h3 className="font-semibold truncate">{player.manager}</h3>
+                    <div className="text-xs sm:text-sm text-muted-foreground">
                       {sortBy === 'netPoints' ? `${player.netPoints} net points` : `${player.wins} wins`}
                     </div>
                   </div>
                 </div>
 
-                <div className="flex gap-6 text-sm">
+                <div className="grid grid-cols-4 sm:flex sm:gap-4 md:gap-6 gap-2 text-xs sm:text-sm">
                   <div className="text-center">
                     <div className="font-bold text-primary">{player.totalPoints}</div>
-                    <div className="text-muted-foreground">Total</div>
+                    <div className="text-muted-foreground text-xs">Total</div>
                   </div>
                   <div className="text-center">
                     <div className="font-bold text-performance-poor">-{player.transferPoints}</div>
-                    <div className="text-muted-foreground">Transfers</div>
+                    <div className="text-muted-foreground text-xs">Trans</div>
                   </div>
                   <div className="text-center">
                     <div className="font-bold gradient-text">{player.netPoints}</div>
-                    <div className="text-muted-foreground">Net</div>
+                    <div className="text-muted-foreground text-xs">Net</div>
                   </div>
                   <div className="text-center">
-                    <div className="font-bold text-winner flex items-center gap-1">
+                    <div className="font-bold text-winner flex items-center justify-center gap-1">
                       {player.wins} <Trophy className="w-3 h-3" />
                     </div>
-                    <div className="text-muted-foreground">Wins</div>
+                    <div className="text-muted-foreground text-xs">Wins</div>
                   </div>
                 </div>
               </div>

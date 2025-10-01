@@ -60,7 +60,7 @@ export const InfoSlider = () => {
     <div className="carousel-3d relative">
       <Card className="overflow-hidden bg-gradient-to-br from-card to-muted">
         <CardContent className="p-0">
-          <div className="relative h-64 flex items-center justify-center">
+          <div className="relative h-48 sm:h-56 md:h-64 flex items-center justify-center">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -72,14 +72,16 @@ export const InfoSlider = () => {
                       : 'opacity-0 transform translate-x-full scale-95'
                 }`}
               >
-                <div className={`h-full flex flex-col items-center justify-center text-center bg-gradient-to-br ${slide.gradient} rounded-lg p-6 text-white`}>
-                  <div className="mb-4 p-3 bg-white/20 rounded-full">
-                    {slide.icon}
+                <div className={`h-full flex flex-col items-center justify-center text-center bg-gradient-to-br ${slide.gradient} rounded-lg p-4 sm:p-6 text-white`}>
+                  <div className="mb-2 sm:mb-4 p-2 sm:p-3 bg-white/20 rounded-full">
+                    <div className="w-5 h-5 sm:w-8 sm:h-8">
+                      {slide.icon}
+                    </div>
                   </div>
-                  <h3 className="font-orbitron text-xl font-bold mb-4">
+                  <h3 className="font-orbitron text-base sm:text-xl font-bold mb-2 sm:mb-4">
                     {slide.title}
                   </h3>
-                  <p className="text-white/90 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-white/90 leading-relaxed line-clamp-4 sm:line-clamp-none">
                     {slide.content}
                   </p>
                 </div>

@@ -47,39 +47,39 @@ export const PlayerCard = ({ player, isWinner = false, position }: PlayerCardPro
   const recentGameweeks = player.gameweekHistory.slice(-3);
 
   return (
-    <Card className={`p-6 h-80 hover-lift ${
+    <Card className={`p-4 sm:p-6 h-auto sm:h-80 hover-lift ${
       isWinner ? 'bg-gradient-to-br from-winner to-winner-glow border-winner winner-pulse' : 'bg-card'
     }`}>
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex items-center justify-between mb-3 sm:mb-4">
         <div className="flex items-center gap-2">
-          <span className="text-2xl font-orbitron font-bold text-muted-foreground">
+          <span className="text-xl sm:text-2xl font-orbitron font-bold text-muted-foreground">
             #{position}
           </span>
-          {isWinner && <Trophy className="w-6 h-6 text-winner-glow animate-pulse" />}
+          {isWinner && <Trophy className="w-5 h-5 sm:w-6 sm:h-6 text-winner-glow animate-pulse" />}
         </div>
         <div className={`w-3 h-3 rounded-full bg-${getPerformanceColor(player.netPoints)}`} />
       </div>
 
-      <h3 className="font-orbitron font-bold text-lg mb-4 line-clamp-2">
+      <h3 className="font-orbitron font-bold text-base sm:text-lg mb-3 sm:mb-4 line-clamp-2">
         {player.manager}
       </h3>
 
-      <div className="space-y-3 mb-4">
+      <div className="space-y-2 sm:space-y-3 mb-3 sm:mb-4">
         <div className="flex justify-between items-center">
-          <span className="text-muted-foreground">Net Points</span>
-          <span className="font-bold text-primary gradient-text count-up">
+          <span className="text-xs sm:text-sm text-muted-foreground">Net Points</span>
+          <span className="font-bold text-sm sm:text-base text-primary gradient-text count-up">
             {player.netPoints}
           </span>
         </div>
 
-        <div className="w-full bg-secondary rounded-full h-2">
+        <div className="w-full bg-secondary rounded-full h-1.5 sm:h-2">
           <div 
-            className="bg-primary h-2 rounded-full progress-fill transition-all duration-1000"
+            className="bg-primary h-1.5 sm:h-2 rounded-full progress-fill transition-all duration-1000"
             style={{ width: `${Math.min((player.netPoints / 100) * 100, 100)}%` }}
           />
         </div>
 
-        <div className="grid grid-cols-2 gap-4 text-sm">
+        <div className="grid grid-cols-2 gap-3 sm:gap-4 text-xs sm:text-sm">
           <div className="flex flex-col">
             <span className="text-muted-foreground">Total Points</span>
             <span className="font-semibold">{player.totalPoints}</span>
@@ -94,19 +94,19 @@ export const PlayerCard = ({ player, isWinner = false, position }: PlayerCardPro
       </div>
 
       {/* Payment Status Section */}
-      <div className="border-t border-border pt-4 space-y-3">
+      <div className="border-t border-border pt-3 sm:pt-4 space-y-2 sm:space-y-3">
         <div className="flex items-center justify-between">
-          <span className="text-sm text-muted-foreground">Payment Status</span>
+          <span className="text-xs sm:text-sm text-muted-foreground">Payment Status</span>
           <div className={`flex items-center gap-1 ${getPaymentStatusColor()}`}>
             {getPaymentIcon()}
             <span className="text-xs font-medium capitalize">{getPaymentStatus()}</span>
           </div>
         </div>
         
-        <div className="space-y-2">
+        <div className="space-y-1.5 sm:space-y-2">
           <div className="flex justify-between text-xs">
-            <span className="text-muted-foreground">Paid: KSh {player.amountPaid.toLocaleString()}</span>
-            <span className="text-muted-foreground">{player.gameweeksPaid}/38 GWs</span>
+            <span className="text-muted-foreground truncate">Paid: KSh {player.amountPaid.toLocaleString()}</span>
+            <span className="text-muted-foreground flex-shrink-0 ml-2">{player.gameweeksPaid}/38 GWs</span>
           </div>
           <div className="w-full bg-secondary rounded-full h-1.5">
             <div 

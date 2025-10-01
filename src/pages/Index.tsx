@@ -58,20 +58,20 @@ const Index = () => {
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="border-b border-border bg-gradient-to-r from-primary/10 to-accent/10 backdrop-blur-sm sticky top-0 z-50">
-        <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="p-2 bg-primary rounded-lg">
-              <Trophy className="w-6 h-6 text-primary-foreground" />
+        <div className="container mx-auto px-2 sm:px-4 py-3 sm:py-4 flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+            <div className="p-1.5 sm:p-2 bg-primary rounded-lg flex-shrink-0">
+              <Trophy className="w-4 h-4 sm:w-6 sm:h-6 text-primary-foreground" />
             </div>
-            <div>
-              <h1 className="font-orbitron text-xl font-bold gradient-text">
+            <div className="min-w-0">
+              <h1 className="font-orbitron text-sm sm:text-xl font-bold gradient-text truncate">
                 Mashinani League Cup
               </h1>
-              <p className="text-sm text-muted-foreground">Fantasy Premier League Mini-League</p>
+              <p className="text-xs sm:text-sm text-muted-foreground hidden sm:block">Fantasy Premier League Mini-League</p>
             </div>
           </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm text-muted-foreground">Gameweek {currentGameweek}</span>
+          <div className="flex items-center gap-1 sm:gap-2 flex-shrink-0">
+            <span className="text-xs sm:text-sm text-muted-foreground">GW {currentGameweek}</span>
             <ThemeToggle />
           </div>
         </div>
@@ -90,30 +90,34 @@ const Index = () => {
 
         {/* Main Content Tabs */}
         <Tabs defaultValue="players" className="w-full">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="players" className="gap-2">
-              <Users className="w-4 h-4" />
-              Players
+          <TabsList className="grid w-full grid-cols-4 h-auto">
+            <TabsTrigger value="players" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
+              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Players</span>
+              <span className="sm:hidden">Play</span>
             </TabsTrigger>
-            <TabsTrigger value="payments" className="gap-2">
-              <CreditCard className="w-4 h-4" />
-              Payments
+            <TabsTrigger value="payments" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
+              <CreditCard className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Payments</span>
+              <span className="sm:hidden">Pay</span>
             </TabsTrigger>
-            <TabsTrigger value="leaderboard" className="gap-2">
-              <BarChart3 className="w-4 h-4" />
-              Leaderboard
+            <TabsTrigger value="leaderboard" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
+              <BarChart3 className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Leaderboard</span>
+              <span className="sm:hidden">Board</span>
             </TabsTrigger>
-            <TabsTrigger value="admin" className="gap-2">
-              <Settings className="w-4 h-4" />
-              Admin
+            <TabsTrigger value="admin" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
+              <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
+              <span className="hidden sm:inline">Admin</span>
+              <span className="sm:hidden">Adm</span>
             </TabsTrigger>
           </TabsList>
 
           {/* Players Grid */}
           <TabsContent value="players" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="font-orbitron text-2xl font-bold">All Participants</h2>
-              <p className="text-muted-foreground">Click cards to flip and see recent performance</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <h2 className="font-orbitron text-xl sm:text-2xl font-bold">All Participants</h2>
+              <p className="text-xs sm:text-sm text-muted-foreground">Click cards to flip and see recent performance</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
@@ -132,9 +136,9 @@ const Index = () => {
 
           {/* Payments */}
           <TabsContent value="payments" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="font-orbitron text-2xl font-bold">Payment Management</h2>
-              <p className="text-muted-foreground">KSh 100 per gameweek • Total: KSh 3,800</p>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+              <h2 className="font-orbitron text-xl sm:text-2xl font-bold">Payment Management</h2>
+              <p className="text-xs sm:text-sm text-muted-foreground">KSh 100 per gameweek • Total: KSh 3,800</p>
             </div>
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
@@ -160,10 +164,10 @@ const Index = () => {
 
           {/* Admin Panel */}
           <TabsContent value="admin" className="space-y-6">
-            <div className="flex items-center justify-between">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
               <div>
-                <h2 className="font-orbitron text-2xl font-bold">Admin Panel</h2>
-                <p className="text-muted-foreground">Update gameweek scores and manage the league</p>
+                <h2 className="font-orbitron text-xl sm:text-2xl font-bold">Admin Panel</h2>
+                <p className="text-xs sm:text-sm text-muted-foreground">Update gameweek scores and manage the league</p>
               </div>
               <div className="flex items-center gap-2">
                 <Button
@@ -171,16 +175,20 @@ const Index = () => {
                   size="sm"
                   onClick={() => setCurrentGameweek(Math.max(1, currentGameweek - 1))}
                   disabled={currentGameweek <= 1}
+                  className="text-xs sm:text-sm"
                 >
-                  Previous GW
+                  <span className="hidden sm:inline">Previous GW</span>
+                  <span className="sm:hidden">Prev</span>
                 </Button>
                 <Button
                   variant="outline"
                   size="sm"
                   onClick={() => setCurrentGameweek(Math.min(38, currentGameweek + 1))}
                   disabled={currentGameweek >= 38}
+                  className="text-xs sm:text-sm"
                 >
-                  Next GW
+                  <span className="hidden sm:inline">Next GW</span>
+                  <span className="sm:hidden">Next</span>
                 </Button>
               </div>
             </div>
@@ -195,24 +203,24 @@ const Index = () => {
 
         {/* Stats Footer */}
         <footer className="pt-8 border-t border-border">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-            <div className="p-4">
-              <div className="text-2xl font-orbitron font-bold gradient-text">11</div>
-              <div className="text-sm text-muted-foreground">Participants</div>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-2 sm:gap-4 text-center">
+            <div className="p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-orbitron font-bold gradient-text">11</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Participants</div>
             </div>
-            <div className="p-4">
-              <div className="text-2xl font-orbitron font-bold gradient-text">38</div>
-              <div className="text-sm text-muted-foreground">Gameweeks</div>
+            <div className="p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-orbitron font-bold gradient-text">38</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Gameweeks</div>
             </div>
-            <div className="p-4">
-              <div className="text-2xl font-orbitron font-bold gradient-text">1,100</div>
-              <div className="text-sm text-muted-foreground">Prize per GW</div>
+            <div className="p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-orbitron font-bold gradient-text">1,100</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Prize per GW</div>
             </div>
-            <div className="p-4">
-              <div className="text-2xl font-orbitron font-bold gradient-text">
+            <div className="p-2 sm:p-4">
+              <div className="text-xl sm:text-2xl font-orbitron font-bold gradient-text">
                 {players.reduce((sum, p) => sum + p.wins, 0)}
               </div>
-              <div className="text-sm text-muted-foreground">Total Wins</div>
+              <div className="text-xs sm:text-sm text-muted-foreground">Total Wins</div>
             </div>
           </div>
         </footer>
