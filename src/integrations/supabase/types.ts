@@ -138,7 +138,27 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_payment_history: {
+        Args: { limit_count?: number }
+        Returns: {
+          amount: number
+          completed_at: string
+          created_at: string
+          id: string
+          manager_name: string
+          mpesa_receipt_number: string
+          status: string
+        }[]
+      }
+      get_payment_stats: {
+        Args: Record<PropertyKey, never>
+        Returns: {
+          completed_payments: number
+          pending_payments: number
+          total_collected: number
+          total_payments: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never

@@ -8,7 +8,6 @@ import { formatDistanceToNow } from "date-fns";
 interface Payment {
   id: string;
   manager_name: string;
-  phone_number: string;
   amount: number;
   status: string;
   created_at: string;
@@ -26,11 +25,9 @@ export function PaymentHistory() {
 
   const fetchPayments = async () => {
     try {
+      // Use secure function that doesn't expose phone numbers
       const { data, error } = await supabase
-        .from('payments')
-        .select('*')
-        .order('created_at', { ascending: false })
-        .limit(50);
+        .rpc('get_payment_history', { limit_count: 50 });
 
       if (error) {
         console.error('Error fetching payments:', error);
