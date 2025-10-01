@@ -8,121 +8,115 @@
 
 @layer base {
   :root {
-    /* Beautiful White, Beige, Cream & Brown Theme */
-    --background: 45 30% 98%;
-    --foreground: 30 15% 18%;
+    /* Professional White, Cream, Beige & Brown Theme */
+    --background: 40 40% 99%;
+    --foreground: 25 20% 15%;
 
-    --card: 42 25% 96%;
-    --card-foreground: 30 15% 20%;
+    --card: 35 35% 97%;
+    --card-foreground: 25 20% 18%;
 
-    --popover: 42 25% 96%;
-    --popover-foreground: 30 15% 20%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 25 20% 18%;
 
-    /* Rich Brown Primary with Cream Accents */
-    --primary: 25 30% 35%;
-    --primary-foreground: 45 20% 95%;
-    --primary-glow: 30 40% 55%;
+    /* Rich Chocolate Brown Primary with Cream Accents */
+    --primary: 25 45% 30%;
+    --primary-foreground: 40 40% 98%;
+    --primary-glow: 30 50% 50%;
 
-    --secondary: 45 15% 92%;
-    --secondary-foreground: 25 20% 25%;
+    --secondary: 40 30% 94%;
+    --secondary-foreground: 25 30% 20%;
 
-    --muted: 40 20% 94%;
-    --muted-foreground: 30 15% 45%;
+    --muted: 35 25% 95%;
+    --muted-foreground: 30 20% 40%;
 
-    --accent: 35 25% 75%;
-    --accent-foreground: 25 20% 15%;
+    --accent: 35 40% 85%;
+    --accent-foreground: 25 40% 20%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 40 15% 88%;
-    --input: 40 15% 88%;
-    --ring: 25 30% 35%;
+    --border: 35 20% 88%;
+    --input: 35 20% 92%;
+    --ring: 25 45% 30%;
 
     /* Performance Colors - Warm Earth Tones */
-    --performance-excellent: 30 50% 40%;
-    --performance-good: 35 45% 50%;
-    --performance-average: 40 40% 60%;
-    --performance-poor: 15 35% 45%;
+    --performance-excellent: 30 55% 38%;
+    --performance-good: 35 50% 48%;
+    --performance-average: 40 45% 58%;
+    --performance-poor: 15 40% 45%;
 
-    /* Winner Colors - Elegant Warm Brown & Cream */
-    --winner-gold: 35 40% 55%;
-    --winner-glow: 30 35% 60%;
-    --winner: 28 35% 50%;
+    /* Winner Colors - Elegant Golden Brown */
+    --winner-gold: 38 55% 58%;
+    --winner-glow: 35 50% 65%;
+    --winner: 32 50% 52%;
 
     /* Payment Status Colors */
-    --payment-paid: 120 35% 45%;
-    --payment-partial: 40 50% 55%;
-    --payment-overdue: 0 50% 50%;
+    --payment-paid: 120 40% 42%;
+    --payment-partial: 40 55% 52%;
+    --payment-overdue: 0 55% 48%;
 
-    /* Custom Gradients - White, Beige, Cream & Brown */
-    --gradient-field: linear-gradient(135deg, hsl(45 30% 98%), hsl(42 25% 95%));
-    --gradient-card: linear-gradient(145deg, hsl(42 25% 96%), hsl(40 20% 94%));
-    --gradient-winner: linear-gradient(135deg, hsl(30 35% 55%), hsl(25 30% 50%));
-    --gradient-primary: linear-gradient(135deg, hsl(25 30% 35%), hsl(30 25% 45%));
+    /* Custom Gradients - White to Cream to Beige */
+    --gradient-field: linear-gradient(135deg, hsl(0 0% 100%), hsl(40 40% 97%));
+    --gradient-card: linear-gradient(145deg, hsl(35 35% 98%), hsl(40 30% 95%));
+    --gradient-winner: linear-gradient(135deg, hsl(38 55% 58%), hsl(32 50% 50%));
+    --gradient-primary: linear-gradient(135deg, hsl(25 45% 30%), hsl(30 40% 38%));
 
-    /* Shadows & Effects */
-    --shadow-card: 0 8px 32px hsl(25 20% 10% / 0.12);
-    --shadow-winner: 0 0 30px hsl(30 35% 50% / 0.25);
-    --shadow-glow: 0 0 20px hsl(25 30% 35% / 0.15);
+    /* Shadows & Effects - Soft Brown Shadows */
+    --shadow-card: 0 8px 32px hsl(25 25% 10% / 0.1);
+    --shadow-winner: 0 0 35px hsl(35 50% 55% / 0.3);
+    --shadow-glow: 0 0 25px hsl(25 45% 30% / 0.12);
 
     --radius: 0.75rem;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 25 25% 20%;
+    --sidebar-primary: 25 45% 30%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 40 30% 95%;
+    --sidebar-accent-foreground: 25 30% 20%;
+    --sidebar-border: 35 20% 90%;
+    --sidebar-ring: 25 45% 30%;
   }
 
   .dark {
-    /* Dark Mode - Rich Brown & Cream Theme */
-    --background: 25 25% 8%;
-    --foreground: 42 20% 92%;
+    /* Dark Mode - Deep Brown with Cream Accents */
+    --background: 25 30% 10%;
+    --foreground: 40 25% 90%;
 
-    --card: 28 20% 12%;
-    --card-foreground: 42 20% 92%;
+    --card: 28 25% 14%;
+    --card-foreground: 40 25% 90%;
 
-    --popover: 28 20% 12%;
-    --popover-foreground: 42 20% 92%;
+    --popover: 28 25% 14%;
+    --popover-foreground: 40 25% 90%;
 
-    --primary: 30 35% 65%;
-    --primary-foreground: 25 25% 8%;
-    --primary-glow: 35 40% 75%;
+    --primary: 35 45% 60%;
+    --primary-foreground: 25 30% 10%;
+    --primary-glow: 38 50% 70%;
 
-    --secondary: 25 15% 18%;
-    --secondary-foreground: 40 20% 85%;
+    --secondary: 25 20% 20%;
+    --secondary-foreground: 40 25% 88%;
 
-    --muted: 25 15% 18%;
-    --muted-foreground: 35 15% 65%;
+    --muted: 25 20% 20%;
+    --muted-foreground: 35 20% 65%;
 
-    --accent: 35 30% 70%;
-    --accent-foreground: 42 20% 92%;
+    --accent: 35 35% 68%;
+    --accent-foreground: 25 30% 10%;
 
-    --destructive: 0 62% 50%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive: 0 65% 52%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 25 15% 18%;
-    --input: 25 15% 18%;
-    --ring: 30 35% 65%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --border: 25 20% 22%;
+    --input: 25 20% 22%;
+    --ring: 35 45% 60%;
+    
+    --sidebar-background: 25 30% 12%;
+    --sidebar-foreground: 40 25% 88%;
+    --sidebar-primary: 35 45% 60%;
+    --sidebar-primary-foreground: 25 30% 10%;
+    --sidebar-accent: 25 20% 18%;
+    --sidebar-accent-foreground: 40 25% 88%;
+    --sidebar-border: 25 20% 20%;
+    --sidebar-ring: 35 45% 60%;
   }
 }
 
@@ -133,7 +127,7 @@
 
   body {
     @apply bg-background text-foreground font-inter antialiased;
-    background: linear-gradient(135deg, hsl(45 30% 98%), hsl(42 25% 95%));
+    background: linear-gradient(135deg, hsl(0 0% 100%), hsl(40 40% 97%), hsl(35 35% 95%));
     min-height: 100vh;
   }
 
@@ -188,7 +182,7 @@
       transform: scale(1);
     }
     50% {
-      box-shadow: 0 0 40px hsl(45 75% 55% / 0.6);
+      box-shadow: 0 0 45px hsl(38 60% 58% / 0.5);
       transform: scale(1.02);
     }
   }
@@ -198,7 +192,7 @@
     position: absolute;
     width: 10px;
     height: 10px;
-    background: hsl(40 70% 60%);
+    background: hsl(38 65% 62%);
     animation: confetti-fall 3s linear infinite;
   }
 
