@@ -12,18 +12,20 @@ interface GameweekFormProps {
   players: Player[];
   onUpdatePlayers: (players: Player[]) => void;
   onDeleteManager: (manager: string) => void;
+  currentGameweek: number;
+  onGameweekChange: (gameweek: number) => void;
 }
 
-export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: GameweekFormProps) => {
-  const [selectedGameweek, setSelectedGameweek] = useState<number>(1);
+export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager, currentGameweek, onGameweekChange }: GameweekFormProps) => {
   const [gameweekData, setGameweekData] = useState<Record<string, { points: number; transferPoints: number }>>({});
 
   const handleGameweekChange = (gameweek: string) => {
-    setSelectedGameweek(parseInt(gameweek));
+    const gwNumber = parseInt(gameweek);
+    onGameweekChange(gwNumber);
     // Initialize form data for selected gameweek
     const initialData: Record<string, { points: number; transferPoints: number }> = {};
     players.forEach(player => {
-      const existingData = player.gameweekHistory.find(gw => gw.gameweek === parseInt(gameweek));
+      const existingData = player.gameweekHistory.find(gw => gw.gameweek === gwNumber);
       initialData[player.manager] = {
         points: existingData?.points || 0,
         transferPoints: existingData?.transferPoints || 0
@@ -48,11 +50,11 @@ export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: Game
       if (!data) return player;
 
       // Remove existing data for this gameweek
-      const filteredHistory = player.gameweekHistory.filter(gw => gw.gameweek !== selectedGameweek);
+      const filteredHistory = player.gameweekHistory.filter(gw => gw.gameweek !== currentGameweek);
       
       // Add new gameweek data
       const newGameweekData = {
-        gameweek: selectedGameweek,
+        gameweek: currentGameweek,
         points: data.points,
         transferPoints: data.transferPoints,
         netPoints: data.points - data.transferPoints
@@ -81,7 +83,7 @@ export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: Game
     });
 
     onUpdatePlayers(playersWithWins);
-    toast.success(`Gameweek ${selectedGameweek} updated successfully!`);
+    toast.success(`Gameweek ${currentGameweek} updated successfully!`);
   };
 
   const exportToCSV = () => {
@@ -99,7 +101,7 @@ export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: Game
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `mashinani-league-cup-gw${selectedGameweek}.csv`;
+    a.download = `mashinani-league-cup-gw${currentGameweek}.csv`;
     a.click();
     URL.revokeObjectURL(url);
     
@@ -115,7 +117,7 @@ export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: Game
         <div className="flex items-center gap-4">
           <div className="flex-1">
             <Label htmlFor="gameweek">Select Gameweek</Label>
-            <Select onValueChange={handleGameweekChange} defaultValue="1">
+            <Select onValueChange={handleGameweekChange} value={currentGameweek.toString()}>
               <SelectTrigger id="gameweek">
                 <SelectValue placeholder="Select gameweek" />
               </SelectTrigger>
@@ -162,7 +164,7 @@ export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager }: Game
 
         <Button onClick={handleSubmit} className="w-full gap-2">
           <Save className="w-4 h-4" />
-          Update Gameweek {selectedGameweek}
+          Update Gameweek {currentGameweek}
         </Button>
       </CardContent>
     </Card>

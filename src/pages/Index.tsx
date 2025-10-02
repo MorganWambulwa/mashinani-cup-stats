@@ -197,6 +197,8 @@ const Index = () => {
               players={players} 
               onUpdatePlayers={setPlayers} 
               onDeleteManager={handleDeleteManager}
+              currentGameweek={currentGameweek}
+              onGameweekChange={setCurrentGameweek}
             />
           </TabsContent>
         </Tabs>
