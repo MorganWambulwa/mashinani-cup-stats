@@ -11,11 +11,11 @@ import { Leaderboard } from '@/components/Leaderboard';
 import { WinnerCard } from '@/components/WinnerCard';
 import { InfoSlider } from '@/components/InfoSlider';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { initialParticipants } from '@/data/participants';
+import { usePlayerData } from '@/hooks/usePlayerData';
 import { Player } from '@/types';
 
 const Index = () => {
-  const [players, setPlayers] = useState<Player[]>(initialParticipants);
+  const { players, loading, updateGameweekData, updatePayment, deleteManager } = usePlayerData();
   const [currentGameweek, setCurrentGameweek] = useState(1);
 
   // Find current gameweek winner
@@ -36,23 +36,16 @@ const Index = () => {
 
   const winner = getCurrentGameweekWinner();
 
-  const handlePaymentUpdate = (manager: string, amount: number) => {
-    setPlayers(prevPlayers => 
-      prevPlayers.map(player => 
-        player.manager === manager 
-          ? { 
-              ...player, 
-              amountPaid: player.amountPaid + amount,
-              gameweeksPaid: Math.floor((player.amountPaid + amount) / 100)
-            }
-          : player
-      )
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background flex items-center justify-center">
+        <div className="text-center">
+          <Trophy className="w-12 h-12 mx-auto mb-4 text-primary animate-pulse" />
+          <p className="text-muted-foreground">Loading league data...</p>
+        </div>
+      </div>
     );
-  };
-
-  const handleDeleteManager = (manager: string) => {
-    setPlayers(prevPlayers => prevPlayers.filter(player => player.manager !== manager));
-  };
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -151,7 +144,7 @@ const Index = () => {
                 <PaymentCard
                   key={player.manager}
                   player={player}
-                  onUpdatePayment={handlePaymentUpdate}
+                  onUpdatePayment={updatePayment}
                 />
               ))}
             </div>
@@ -195,8 +188,8 @@ const Index = () => {
             
             <GameweekForm 
               players={players} 
-              onUpdatePlayers={setPlayers} 
-              onDeleteManager={handleDeleteManager}
+              onUpdateGameweekData={updateGameweekData}
+              onDeleteManager={deleteManager}
               currentGameweek={currentGameweek}
               onGameweekChange={setCurrentGameweek}
             />

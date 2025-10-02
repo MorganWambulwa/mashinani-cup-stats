@@ -14,6 +14,47 @@ export type Database = {
   }
   public: {
     Tables: {
+      gameweek_data: {
+        Row: {
+          created_at: string
+          gameweek: number
+          id: string
+          net_points: number
+          player_id: string
+          points: number
+          transfer_points: number
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          gameweek: number
+          id?: string
+          net_points?: number
+          player_id: string
+          points?: number
+          transfer_points?: number
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          gameweek?: number
+          id?: string
+          net_points?: number
+          player_id?: string
+          points?: number
+          transfer_points?: number
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "gameweek_data_player_id_fkey"
+            columns: ["player_id"]
+            isOneToOne: false
+            referencedRelation: "players"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       league_seasons: {
         Row: {
           created_at: string
@@ -83,6 +124,45 @@ export type Database = {
           phone_number?: string
           status?: string
           transaction_desc?: string | null
+        }
+        Relationships: []
+      }
+      players: {
+        Row: {
+          amount_paid: number
+          created_at: string
+          gameweeks_paid: number
+          id: string
+          manager: string
+          net_points: number
+          total_points: number
+          transfer_points: number
+          updated_at: string
+          wins: number
+        }
+        Insert: {
+          amount_paid?: number
+          created_at?: string
+          gameweeks_paid?: number
+          id?: string
+          manager: string
+          net_points?: number
+          total_points?: number
+          transfer_points?: number
+          updated_at?: string
+          wins?: number
+        }
+        Update: {
+          amount_paid?: number
+          created_at?: string
+          gameweeks_paid?: number
+          id?: string
+          manager?: string
+          net_points?: number
+          total_points?: number
+          transfer_points?: number
+          updated_at?: string
+          wins?: number
         }
         Relationships: []
       }

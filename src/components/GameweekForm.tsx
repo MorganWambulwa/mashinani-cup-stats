@@ -10,13 +10,13 @@ import { toast } from 'sonner';
 
 interface GameweekFormProps {
   players: Player[];
-  onUpdatePlayers: (players: Player[]) => void;
-  onDeleteManager: (manager: string) => void;
+  onUpdateGameweekData: (gameweek: number, data: Record<string, { points: number; transferPoints: number }>) => Promise<void>;
+  onDeleteManager: (manager: string) => Promise<void>;
   currentGameweek: number;
   onGameweekChange: (gameweek: number) => void;
 }
 
-export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager, currentGameweek, onGameweekChange }: GameweekFormProps) => {
+export const GameweekForm = ({ players, onUpdateGameweekData, onDeleteManager, currentGameweek, onGameweekChange }: GameweekFormProps) => {
   const [gameweekData, setGameweekData] = useState<Record<string, { points: number; transferPoints: number }>>({});
 
   const handleGameweekChange = (gameweek: string) => {
@@ -44,46 +44,8 @@ export const GameweekForm = ({ players, onUpdatePlayers, onDeleteManager, curren
     }));
   };
 
-  const handleSubmit = () => {
-    const updatedPlayers = players.map(player => {
-      const data = gameweekData[player.manager];
-      if (!data) return player;
-
-      // Remove existing data for this gameweek
-      const filteredHistory = player.gameweekHistory.filter(gw => gw.gameweek !== currentGameweek);
-      
-      // Add new gameweek data
-      const newGameweekData = {
-        gameweek: currentGameweek,
-        points: data.points,
-        transferPoints: data.transferPoints,
-        netPoints: data.points - data.transferPoints
-      };
-
-      const newHistory = [...filteredHistory, newGameweekData].sort((a, b) => a.gameweek - b.gameweek);
-
-      // Recalculate totals
-      const totalPoints = newHistory.reduce((sum, gw) => sum + gw.points, 0);
-      const totalTransferPoints = newHistory.reduce((sum, gw) => sum + gw.transferPoints, 0);
-      const netPoints = totalPoints - totalTransferPoints;
-
-      return {
-        ...player,
-        gameweekHistory: newHistory,
-        totalPoints,
-        transferPoints: totalTransferPoints,
-        netPoints
-      };
-    });
-
-    // Calculate wins
-    const playersWithWins = updatedPlayers.map(player => {
-      const wins = player.gameweekHistory.length; // This should be calculated properly by checking who won each gameweek
-      return { ...player, wins };
-    });
-
-    onUpdatePlayers(playersWithWins);
-    toast.success(`Gameweek ${currentGameweek} updated successfully!`);
+  const handleSubmit = async () => {
+    await onUpdateGameweekData(currentGameweek, gameweekData);
   };
 
   const exportToCSV = () => {
