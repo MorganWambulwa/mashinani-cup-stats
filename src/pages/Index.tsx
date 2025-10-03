@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Trophy, Settings, BarChart3, Users, CreditCard } from 'lucide-react';
+import { Trophy, Settings, BarChart3, Users, CreditCard, Menu, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { PlayerCard } from '@/components/PlayerCard';
@@ -31,8 +31,21 @@ const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweek
   const navigate = useNavigate();
   const location = useLocation();
   const currentPath = location.pathname;
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const loading = false;
+
+  const navItems = [
+    { path: '/', label: 'Players', shortLabel: 'Play', icon: Users },
+    { path: '/payments', label: 'Payments', shortLabel: 'Pay', icon: CreditCard },
+    { path: '/leaderboard', label: 'Leaderboard', shortLabel: 'Board', icon: BarChart3 },
+    { path: '/admin', label: 'Admin', shortLabel: 'Adm', icon: Settings },
+  ];
+
+  const handleNavClick = (path: string) => {
+    navigate(path);
+    setMobileMenuOpen(false);
+  };
 
   if (loading) {
     return (
@@ -69,49 +82,58 @@ const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweek
       </header>
 
       {/* Navigation */}
-      <nav className="border-b border-border bg-card">
+      <nav className="sticky top-[73px] sm:top-[81px] z-40 border-b border-border bg-card/95 backdrop-blur supports-[backdrop-filter]:bg-card/80">
         <div className="container mx-auto px-4">
-          <div className="flex gap-1 overflow-x-auto">
-            <Button
-              variant={currentPath === '/' ? 'default' : 'ghost'}
-              onClick={() => navigate('/')}
-              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
-              data-active={currentPath === '/'}
-            >
-              <Users className="w-4 h-4" />
-              <span className="hidden sm:inline">Players</span>
-              <span className="sm:hidden">Play</span>
-            </Button>
-            <Button
-              variant={currentPath === '/payments' ? 'default' : 'ghost'}
-              onClick={() => navigate('/payments')}
-              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
-              data-active={currentPath === '/payments'}
-            >
-              <CreditCard className="w-4 h-4" />
-              <span className="hidden sm:inline">Payments</span>
-              <span className="sm:hidden">Pay</span>
-            </Button>
-            <Button
-              variant={currentPath === '/leaderboard' ? 'default' : 'ghost'}
-              onClick={() => navigate('/leaderboard')}
-              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
-              data-active={currentPath === '/leaderboard'}
-            >
-              <BarChart3 className="w-4 h-4" />
-              <span className="hidden sm:inline">Leaderboard</span>
-              <span className="sm:hidden">Board</span>
-            </Button>
-            <Button
-              variant={currentPath === '/admin' ? 'default' : 'ghost'}
-              onClick={() => navigate('/admin')}
-              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
-              data-active={currentPath === '/admin'}
-            >
-              <Settings className="w-4 h-4" />
-              <span className="hidden sm:inline">Admin</span>
-              <span className="sm:hidden">Adm</span>
-            </Button>
+          {/* Desktop Navigation */}
+          <div className="hidden md:flex gap-1">
+            {navItems.map((item) => (
+              <Button
+                key={item.path}
+                variant={currentPath === item.path ? 'default' : 'ghost'}
+                onClick={() => navigate(item.path)}
+                className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
+                data-active={currentPath === item.path}
+              >
+                <item.icon className="w-4 h-4" />
+                <span>{item.label}</span>
+              </Button>
+            ))}
+          </div>
+
+          {/* Mobile Navigation */}
+          <div className="md:hidden">
+            <div className="flex items-center justify-between py-3">
+              <h2 className="font-semibold">
+                {navItems.find(item => item.path === currentPath)?.label || 'Menu'}
+              </h2>
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 hover:bg-accent rounded-md transition-colors"
+                aria-label="Toggle menu"
+              >
+                {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+              </button>
+            </div>
+
+            {/* Mobile Menu Dropdown */}
+            {mobileMenuOpen && (
+              <div className="pb-3 space-y-1 border-t border-border pt-3">
+                {navItems.map((item) => (
+                  <button
+                    key={item.path}
+                    onClick={() => handleNavClick(item.path)}
+                    className={`w-full flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
+                      currentPath === item.path
+                        ? 'bg-primary text-primary-foreground'
+                        : 'hover:bg-accent'
+                    }`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    <span>{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
         </div>
       </nav>

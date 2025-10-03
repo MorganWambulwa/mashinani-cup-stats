@@ -69,111 +69,76 @@ export const usePlayerData = () => {
 
       if (playersError) throw playersError;
 
-      // Update or insert gameweek data for each player
-      for (const player of playersData) {
-        const data = gameweekData[player.manager];
-        if (!data) continue;
-
-        const points = data.points || 0;
-        const transferPoints = data.transferPoints || 0;
-        const netPoints = points - transferPoints;
-
-        // Upsert gameweek data
-        const { error: gwError } = await supabase
-          .from('gameweek_data')
-          .upsert({
+      // Prepare batch upsert data
+      const gameweekRecords = playersData
+        .filter(player => gameweekData[player.manager])
+        .map(player => {
+          const data = gameweekData[player.manager];
+          const points = data.points || 0;
+          const transferPoints = data.transferPoints || 0;
+          return {
             player_id: player.id,
             gameweek: gameweekNumber,
-            points: points,
+            points,
             transfer_points: transferPoints,
-            net_points: netPoints
-          }, {
-            onConflict: 'player_id,gameweek'
-          });
+            net_points: points - transferPoints
+          };
+        });
+
+      // Batch upsert all gameweek data
+      if (gameweekRecords.length > 0) {
+        const { error: gwError } = await supabase
+          .from('gameweek_data')
+          .upsert(gameweekRecords, { onConflict: 'player_id,gameweek' });
 
         if (gwError) throw gwError;
       }
 
-      // Recalculate totals for all players
-      for (const player of playersData) {
-        const { data: allGameweeks, error: gwFetchError } = await supabase
-          .from('gameweek_data')
-          .select('*')
-          .eq('player_id', player.id);
+      // Recalculate totals and wins using a single efficient query
+      const { data: allGameweekData, error: allGwError } = await supabase
+        .from('gameweek_data')
+        .select('player_id, gameweek, points, transfer_points, net_points');
 
-        if (gwFetchError) throw gwFetchError;
+      if (allGwError) throw allGwError;
 
-        const totalPoints = allGameweeks.reduce((sum, gw) => sum + gw.points, 0);
-        const transferPoints = allGameweeks.reduce((sum, gw) => sum + gw.transfer_points, 0);
+      // Calculate totals and wins for each player
+      const playerUpdates = playersData.map(player => {
+        const playerGws = allGameweekData.filter(gw => gw.player_id === player.id);
+        
+        const totalPoints = playerGws.reduce((sum, gw) => sum + gw.points, 0);
+        const transferPoints = playerGws.reduce((sum, gw) => sum + gw.transfer_points, 0);
         const netPoints = totalPoints - transferPoints;
 
-        // Update player totals
-        const { error: updateError } = await supabase
-          .from('players')
-          .update({
-            total_points: totalPoints,
-            transfer_points: transferPoints,
-            net_points: netPoints
-          })
-          .eq('id', player.id);
-
-        if (updateError) throw updateError;
-      }
-
-      // Calculate wins for the updated gameweek
-      const { data: gameweekResults, error: resultsError } = await supabase
-        .from('gameweek_data')
-        .select('player_id, net_points')
-        .eq('gameweek', gameweekNumber)
-        .order('net_points', { ascending: false });
-
-      if (resultsError) throw resultsError;
-
-      if (gameweekResults.length > 0) {
-        const maxNetPoints = gameweekResults[0].net_points;
-        const winners = gameweekResults.filter(r => r.net_points === maxNetPoints);
-
-        // Reset wins for all players first
-        const { data: allPlayers } = await supabase
-          .from('players')
-          .select('id');
-
-        if (allPlayers) {
-          for (const player of allPlayers) {
-            // Count how many times this player won
-            const { data: playerGameweeks } = await supabase
-              .from('gameweek_data')
-              .select('gameweek, net_points, player_id')
-              .eq('player_id', player.id);
-
-            if (playerGameweeks) {
-              let winCount = 0;
-              
-              // Group by gameweek and check if player had max net points
-              const gameweeks = [...new Set(playerGameweeks.map(g => g.gameweek))];
-              
-              for (const gw of gameweeks) {
-                const { data: gwData } = await supabase
-                  .from('gameweek_data')
-                  .select('net_points')
-                  .eq('gameweek', gw)
-                  .order('net_points', { ascending: false })
-                  .limit(1)
-                  .single();
-
-                const playerGwData = playerGameweeks.find(g => g.gameweek === gw);
-                if (gwData && playerGwData && playerGwData.net_points === gwData.net_points) {
-                  winCount++;
-                }
-              }
-
-              await supabase
-                .from('players')
-                .update({ wins: winCount })
-                .eq('id', player.id);
-            }
+        // Calculate wins efficiently
+        const gameweeks = [...new Set(playerGws.map(g => g.gameweek))];
+        let wins = 0;
+        
+        for (const gw of gameweeks) {
+          const gwRecords = allGameweekData.filter(g => g.gameweek === gw);
+          const maxNetPoints = Math.max(...gwRecords.map(g => g.net_points));
+          const playerGwData = playerGws.find(g => g.gameweek === gw);
+          
+          if (playerGwData && playerGwData.net_points === maxNetPoints) {
+            wins++;
           }
         }
+
+        return {
+          id: player.id,
+          total_points: totalPoints,
+          transfer_points: transferPoints,
+          net_points: netPoints,
+          wins
+        };
+      });
+
+      // Batch update all players
+      for (const update of playerUpdates) {
+        const { id, ...updateData } = update;
+        await supabase
+          .from('players')
+          .update(updateData)
+          .eq('id', id);
       }
 
       await fetchPlayers();
