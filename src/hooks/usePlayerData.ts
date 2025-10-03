@@ -101,8 +101,8 @@ export const usePlayerData = () => {
 
       if (allGwError) throw allGwError;
 
-      // Calculate totals and wins for each player
-      const playerUpdates = playersData.map(player => {
+      // Calculate totals and wins for each player with manager info
+      const playerUpdatesWithManager = playersData.map(player => {
         const playerGws = allGameweekData.filter(gw => gw.player_id === player.id);
         
         const totalPoints = playerGws.reduce((sum, gw) => sum + gw.points, 0);
@@ -125,6 +125,7 @@ export const usePlayerData = () => {
 
         return {
           id: player.id,
+          manager: player.manager,
           total_points: totalPoints,
           transfer_points: transferPoints,
           net_points: netPoints,
@@ -132,16 +133,13 @@ export const usePlayerData = () => {
         };
       });
 
-      // Batch update all players
-      for (const update of playerUpdates) {
-        const { id, ...updateData } = update;
-        await supabase
-          .from('players')
-          .update(updateData)
-          .eq('id', id);
-      }
+      // Batch update all players in a single operation
+      const { error: batchUpdateError } = await supabase
+        .from('players')
+        .upsert(playerUpdatesWithManager, { onConflict: 'id' });
 
-      await fetchPlayers();
+      if (batchUpdateError) throw batchUpdateError;
+
       toast.success(`Gameweek ${gameweekNumber} updated successfully!`);
     } catch (error) {
       console.error('Error updating gameweek data:', error);
