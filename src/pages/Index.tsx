@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Trophy, Settings, BarChart3, Users, CreditCard } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { PlayerCard } from '@/components/PlayerCard';
 import { PaymentCard } from '@/components/PaymentCard';
 import { PaymentHistory } from '@/components/PaymentHistory';
@@ -11,30 +11,28 @@ import { Leaderboard } from '@/components/Leaderboard';
 import { WinnerCard } from '@/components/WinnerCard';
 import { InfoSlider } from '@/components/InfoSlider';
 import { ThemeToggle } from '@/components/ThemeToggle';
-import { usePlayerData } from '@/hooks/usePlayerData';
 import { Player } from '@/types';
+import Players from './Players';
+import Payments from './Payments';
+import LeaderboardPage from './LeaderboardPage';
+import Admin from './Admin';
 
-const Index = () => {
-  const { players, loading, updateGameweekData, updatePayment, deleteManager } = usePlayerData();
-  const [currentGameweek, setCurrentGameweek] = useState(1);
+interface IndexProps {
+  players: Player[];
+  currentGameweek: number;
+  winner: Player | null;
+  updatePayment: (manager: string, amount: number) => Promise<void>;
+  updateGameweekData: (gameweek: number, data: Record<string, { points: number; transferPoints: number }>) => Promise<void>;
+  deleteManager: (manager: string) => Promise<void>;
+  onGameweekChange: (gameweek: number) => void;
+}
 
-  // Find current gameweek winner
-  const getCurrentGameweekWinner = () => {
-    let maxNetPoints = -Infinity;
-    let winner: Player | null = null;
+const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweekData, deleteManager, onGameweekChange }: IndexProps) => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-    players.forEach(player => {
-      const currentGWData = player.gameweekHistory.find(gw => gw.gameweek === currentGameweek);
-      if (currentGWData && currentGWData.netPoints > maxNetPoints) {
-        maxNetPoints = currentGWData.netPoints;
-        winner = player;
-      }
-    });
-
-    return winner;
-  };
-
-  const winner = getCurrentGameweekWinner();
+  const loading = false;
 
   if (loading) {
     return (
@@ -70,6 +68,54 @@ const Index = () => {
         </div>
       </header>
 
+      {/* Navigation */}
+      <nav className="border-b border-border bg-card">
+        <div className="container mx-auto px-4">
+          <div className="flex gap-1 overflow-x-auto">
+            <Button
+              variant={currentPath === '/' ? 'default' : 'ghost'}
+              onClick={() => navigate('/')}
+              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
+              data-active={currentPath === '/'}
+            >
+              <Users className="w-4 h-4" />
+              <span className="hidden sm:inline">Players</span>
+              <span className="sm:hidden">Play</span>
+            </Button>
+            <Button
+              variant={currentPath === '/payments' ? 'default' : 'ghost'}
+              onClick={() => navigate('/payments')}
+              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
+              data-active={currentPath === '/payments'}
+            >
+              <CreditCard className="w-4 h-4" />
+              <span className="hidden sm:inline">Payments</span>
+              <span className="sm:hidden">Pay</span>
+            </Button>
+            <Button
+              variant={currentPath === '/leaderboard' ? 'default' : 'ghost'}
+              onClick={() => navigate('/leaderboard')}
+              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
+              data-active={currentPath === '/leaderboard'}
+            >
+              <BarChart3 className="w-4 h-4" />
+              <span className="hidden sm:inline">Leaderboard</span>
+              <span className="sm:hidden">Board</span>
+            </Button>
+            <Button
+              variant={currentPath === '/admin' ? 'default' : 'ghost'}
+              onClick={() => navigate('/admin')}
+              className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
+              data-active={currentPath === '/admin'}
+            >
+              <Settings className="w-4 h-4" />
+              <span className="hidden sm:inline">Admin</span>
+              <span className="sm:hidden">Adm</span>
+            </Button>
+          </div>
+        </div>
+      </nav>
+
       <main className="container mx-auto px-4 py-8 space-y-8">
         {/* Winner Section */}
         <section>
@@ -81,120 +127,11 @@ const Index = () => {
           <InfoSlider />
         </section>
 
-        {/* Main Content Tabs */}
-        <Tabs defaultValue="players" className="w-full">
-          <TabsList className="grid w-full grid-cols-4 h-auto">
-            <TabsTrigger value="players" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
-              <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Players</span>
-              <span className="sm:hidden">Play</span>
-            </TabsTrigger>
-            <TabsTrigger value="payments" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
-              <CreditCard className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Payments</span>
-              <span className="sm:hidden">Pay</span>
-            </TabsTrigger>
-            <TabsTrigger value="leaderboard" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
-              <BarChart3 className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Leaderboard</span>
-              <span className="sm:hidden">Board</span>
-            </TabsTrigger>
-            <TabsTrigger value="admin" className="gap-1 sm:gap-2 text-xs sm:text-sm py-2 sm:py-2.5">
-              <Settings className="w-3 h-3 sm:w-4 sm:h-4" />
-              <span className="hidden sm:inline">Admin</span>
-              <span className="sm:hidden">Adm</span>
-            </TabsTrigger>
-          </TabsList>
-
-          {/* Players Grid */}
-          <TabsContent value="players" className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <h2 className="font-orbitron text-xl sm:text-2xl font-bold">All Participants</h2>
-              <p className="text-xs sm:text-sm text-muted-foreground">Click cards to flip and see recent performance</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-              {players
-                .sort((a, b) => b.netPoints - a.netPoints)
-                .map((player, index) => (
-                  <PlayerCard
-                    key={player.manager}
-                    player={player}
-                    position={index + 1}
-                    isWinner={winner?.manager === player.manager}
-                  />
-                ))}
-            </div>
-          </TabsContent>
-
-          {/* Payments */}
-          <TabsContent value="payments" className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
-              <h2 className="font-orbitron text-xl sm:text-2xl font-bold">Payment Management</h2>
-              <p className="text-xs sm:text-sm text-muted-foreground">KSh 100 per gameweek • Total: KSh 3,800</p>
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <PrizePool />
-              <PaymentHistory />
-            </div>
-            
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-              {players.map((player) => (
-                <PaymentCard
-                  key={player.manager}
-                  player={player}
-                  onUpdatePayment={updatePayment}
-                />
-              ))}
-            </div>
-          </TabsContent>
-
-          {/* Leaderboard */}
-          <TabsContent value="leaderboard" className="space-y-6">
-            <Leaderboard players={players} />
-          </TabsContent>
-
-          {/* Admin Panel */}
-          <TabsContent value="admin" className="space-y-6">
-            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-              <div>
-                <h2 className="font-orbitron text-xl sm:text-2xl font-bold">Admin Panel</h2>
-                <p className="text-xs sm:text-sm text-muted-foreground">Update gameweek scores and manage the league</p>
-              </div>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCurrentGameweek(Math.max(1, currentGameweek - 1))}
-                  disabled={currentGameweek <= 1}
-                  className="text-xs sm:text-sm"
-                >
-                  <span className="hidden sm:inline">Previous GW</span>
-                  <span className="sm:hidden">Prev</span>
-                </Button>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => setCurrentGameweek(Math.min(38, currentGameweek + 1))}
-                  disabled={currentGameweek >= 38}
-                  className="text-xs sm:text-sm"
-                >
-                  <span className="hidden sm:inline">Next GW</span>
-                  <span className="sm:hidden">Next</span>
-                </Button>
-              </div>
-            </div>
-            
-            <GameweekForm 
-              players={players} 
-              onUpdateGameweekData={updateGameweekData}
-              onDeleteManager={deleteManager}
-              currentGameweek={currentGameweek}
-              onGameweekChange={setCurrentGameweek}
-            />
-          </TabsContent>
-        </Tabs>
+        {/* Page Content */}
+        {currentPath === '/' && <Players players={players} currentGameweek={currentGameweek} winner={winner} />}
+        {currentPath === '/payments' && <Payments players={players} onUpdatePayment={updatePayment} />}
+        {currentPath === '/leaderboard' && <LeaderboardPage players={players} />}
+        {currentPath === '/admin' && <Admin players={players} currentGameweek={currentGameweek} onGameweekChange={onGameweekChange} onUpdateGameweekData={updateGameweekData} onDeleteManager={deleteManager} />}
 
         {/* Stats Footer */}
         <footer className="pt-8 border-t border-border">

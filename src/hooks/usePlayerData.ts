@@ -74,7 +74,9 @@ export const usePlayerData = () => {
         const data = gameweekData[player.manager];
         if (!data) continue;
 
-        const netPoints = data.points - data.transferPoints;
+        const points = data.points || 0;
+        const transferPoints = data.transferPoints || 0;
+        const netPoints = points - transferPoints;
 
         // Upsert gameweek data
         const { error: gwError } = await supabase
@@ -82,8 +84,8 @@ export const usePlayerData = () => {
           .upsert({
             player_id: player.id,
             gameweek: gameweekNumber,
-            points: data.points,
-            transfer_points: data.transferPoints,
+            points: points,
+            transfer_points: transferPoints,
             net_points: netPoints
           }, {
             onConflict: 'player_id,gameweek'
