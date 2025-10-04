@@ -59,7 +59,7 @@ export const InfoSlider = () => {
     >
       <Card className="overflow-hidden bg-gradient-to-br from-card to-muted">
         <CardContent className="p-0">
-          <div className="relative h-44 sm:h-48 md:h-52 flex items-center justify-center p-4">
+          <div className="relative h-48 sm:h-52 md:h-56 flex items-center justify-center p-4">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -130,7 +130,7 @@ export const InfoSlider = () => {
           </div>
 
           {/* Slide Indicators */}
-          <div className="flex justify-center space-x-2 p-4">
+          <div className="flex justify-center space-x-2 p-2">
             {slides.map((_, index) => (
               <button
                 key={index}
