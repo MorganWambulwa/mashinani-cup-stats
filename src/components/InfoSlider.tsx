@@ -12,7 +12,7 @@ interface SlideContent {
 
 export const InfoSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
-
+  const [isPaused, setIsPaused] = useState(false);
   const [expanded, setExpanded] = useState(false);
 
   const slides: SlideContent[] = [
@@ -33,13 +33,15 @@ export const InfoSlider = () => {
   ];
 
   useEffect(() => {
+    if (isPaused) return;
+    
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % slides.length);
       setExpanded(false);
     }, 10000);
 
     return () => clearInterval(timer);
-  }, [slides.length]);
+  }, [slides.length, isPaused]);
 
   const nextSlide = () => {
     setCurrentSlide((prev) => (prev + 1) % slides.length);
@@ -50,10 +52,14 @@ export const InfoSlider = () => {
   };
 
   return (
-    <div className="carousel-3d relative">
+    <div 
+      className="carousel-3d relative"
+      onMouseEnter={() => setIsPaused(true)}
+      onMouseLeave={() => setIsPaused(false)}
+    >
       <Card className="overflow-hidden bg-gradient-to-br from-card to-muted">
         <CardContent className="p-0">
-          <div className="relative h-56 sm:h-64 md:h-72 flex items-center justify-center p-4">
+          <div className="relative h-44 sm:h-48 md:h-52 flex items-center justify-center p-4">
             {slides.map((slide, index) => (
               <div
                 key={index}
