@@ -36,14 +36,18 @@ const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweek
   const loading = false;
 
   const navItems = [
-    { path: '/', label: 'Players', shortLabel: 'Play', icon: Users },
+    { path: '/', label: 'Managers', shortLabel: 'Mgrs', icon: Users },
     { path: '/payments', label: 'Payments', shortLabel: 'Pay', icon: CreditCard },
     { path: '/leaderboard', label: 'Leaderboard', shortLabel: 'Board', icon: BarChart3 },
-    { path: '/admin', label: 'Admin', shortLabel: 'Adm', icon: Settings },
+    { path: '/admin', label: 'Admin', shortLabel: 'Adm', icon: Settings, requireAuth: true },
   ];
 
-  const handleNavClick = (path: string) => {
-    navigate(path);
+  const handleNavClick = (path: string, requireAuth?: boolean) => {
+    if (requireAuth) {
+      navigate('/auth');
+    } else {
+      navigate(path);
+    }
     setMobileMenuOpen(false);
   };
 
@@ -90,7 +94,7 @@ const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweek
               <Button
                 key={item.path}
                 variant={currentPath === item.path ? 'default' : 'ghost'}
-                onClick={() => navigate(item.path)}
+                onClick={() => handleNavClick(item.path, item.requireAuth)}
                 className="gap-2 rounded-none border-b-2 border-transparent data-[active=true]:border-primary"
                 data-active={currentPath === item.path}
               >
@@ -121,7 +125,7 @@ const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweek
                 {navItems.map((item) => (
                   <button
                     key={item.path}
-                    onClick={() => handleNavClick(item.path)}
+                    onClick={() => handleNavClick(item.path, item.requireAuth)}
                     className={`w-full flex items-center gap-2 px-4 py-2 rounded-md transition-colors ${
                       currentPath === item.path
                         ? 'bg-primary text-primary-foreground'

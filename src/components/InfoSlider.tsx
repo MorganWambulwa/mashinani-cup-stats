@@ -13,30 +13,22 @@ interface SlideContent {
 export const InfoSlider = () => {
   const [currentSlide, setCurrentSlide] = useState(0);
 
+  const [expanded, setExpanded] = useState(false);
+
   const slides: SlideContent[] = [
-    {
-      icon: <Info className="w-8 h-8" />,
-      title: "League Rules",
-      content: "Every gameweek, each of the 11 participants contributes 100. The manager with the highest net points (total points minus transfer points) wins the entire prize pool of 1,100!",
-      gradient: "from-primary to-primary-glow"
-    },
-    {
-      icon: <TrendingUp className="w-8 h-8" />,
-      title: "Scoring System",
-      content: "Your net points are calculated by subtracting your transfer points from your total gameweek points. Strategy matters - too many transfers can cost you the win!",
-      gradient: "from-accent to-purple-500"
-    },
     {
       icon: <Users className="w-8 h-8" />,
       title: "11 Participants",
-      content: "Welcome to the most competitive mini-league in Fantasy Premier League! Track your performance against 10 other skilled managers throughout the season.",
+      content: "Welcome to FPL. Track your performance against 10 other skilled managers throughout the season.",
       gradient: "from-performance-excellent to-performance-good"
     },
     {
-      icon: <Target className="w-8 h-8" />,
-      title: "Season Goal",
-      content: "Consistency is key! While winning individual gameweeks is great, aim for the overall championship by maintaining high net points throughout all 38 gameweeks.",
-      gradient: "from-winner to-winner-glow"
+      icon: <Info className="w-8 h-8" />,
+      title: "MASHINANI LEAGUE CUP RULES",
+      content: expanded 
+        ? "Competition Format: Winner Takes All - Manager with highest net points (chips included) each gameweek wins the pot. In case of a tie, the prize is shared equally.\n\nPayments: Entry fee: 100/- per manager per gameweek. All payments must be made before the gameweek deadline. Advance payments for multiple gameweeks are allowed. Late payments attract a fine of 50/-. Dropping out requires full settlement of remaining gameweeks.\n\nPayment number: 0794539704"
+        : "Competition Format: Winner Takes All - Manager with highest net points (chips included) each gameweek wins the pot...",
+      gradient: "from-primary to-primary-glow"
     }
   ];
 
@@ -60,7 +52,7 @@ export const InfoSlider = () => {
     <div className="carousel-3d relative">
       <Card className="overflow-hidden bg-gradient-to-br from-card to-muted">
         <CardContent className="p-0">
-          <div className="relative h-48 sm:h-56 md:h-64 flex items-center justify-center">
+          <div className="relative h-36 sm:h-40 flex items-center justify-center">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -72,18 +64,29 @@ export const InfoSlider = () => {
                       : 'opacity-0 transform translate-x-full scale-95'
                 }`}
               >
-                <div className={`h-full flex flex-col items-center justify-center text-center bg-gradient-to-br ${slide.gradient} rounded-lg p-4 sm:p-6 text-white`}>
-                  <div className="mb-2 sm:mb-4 p-2 sm:p-3 bg-white/20 rounded-full">
-                    <div className="w-5 h-5 sm:w-8 sm:h-8">
+                <div className={`h-full flex flex-col items-center justify-center text-center bg-gradient-to-br ${slide.gradient} rounded-lg p-3 sm:p-4 text-white`}>
+                  <div className="mb-1 sm:mb-2 p-1 sm:p-2 bg-white/20 rounded-full">
+                    <div className="w-4 h-4 sm:w-6 sm:h-6">
                       {slide.icon}
                     </div>
                   </div>
-                  <h3 className="font-orbitron text-base sm:text-xl font-bold mb-2 sm:mb-4">
+                  <h3 className="font-orbitron text-sm sm:text-lg font-bold mb-1 sm:mb-2">
                     {slide.title}
                   </h3>
-                  <p className="text-xs sm:text-sm text-white/90 leading-relaxed line-clamp-4 sm:line-clamp-none">
+                  <div className="text-xs sm:text-sm text-white/90 leading-relaxed whitespace-pre-line">
                     {slide.content}
-                  </p>
+                    {index === 1 && !expanded && (
+                      <button 
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setExpanded(true);
+                        }}
+                        className="ml-1 text-white underline hover:text-white/80"
+                      >
+                        see more...
+                      </button>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}

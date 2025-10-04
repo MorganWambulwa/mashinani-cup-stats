@@ -3,11 +3,9 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
 import Index from "./pages/Index";
-import Players from "./pages/Players";
-import Payments from "./pages/Payments";
-import LeaderboardPage from "./pages/LeaderboardPage";
-import Admin from "./pages/Admin";
+import Auth from "./pages/Auth";
 import NotFound from "./pages/NotFound";
 import { usePlayerData } from "./hooks/usePlayerData";
 import { useState } from "react";
@@ -41,11 +39,8 @@ const AppContent = () => {
 
   return (
     <Routes>
-      <Route path="/" element={<Index players={players} currentGameweek={currentGameweek} winner={winner} updatePayment={updatePayment} updateGameweekData={updateGameweekData} deleteManager={deleteManager} onGameweekChange={setCurrentGameweek} />} />
-      <Route path="/payments" element={<Index players={players} currentGameweek={currentGameweek} winner={winner} updatePayment={updatePayment} updateGameweekData={updateGameweekData} deleteManager={deleteManager} onGameweekChange={setCurrentGameweek} />} />
-      <Route path="/leaderboard" element={<Index players={players} currentGameweek={currentGameweek} winner={winner} updatePayment={updatePayment} updateGameweekData={updateGameweekData} deleteManager={deleteManager} onGameweekChange={setCurrentGameweek} />} />
-      <Route path="/admin" element={<Index players={players} currentGameweek={currentGameweek} winner={winner} updatePayment={updatePayment} updateGameweekData={updateGameweekData} deleteManager={deleteManager} onGameweekChange={setCurrentGameweek} />} />
-      {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
+      <Route path="/auth" element={<Auth />} />
+      <Route path="/*" element={<Index players={players} currentGameweek={currentGameweek} winner={winner} updatePayment={updatePayment} updateGameweekData={updateGameweekData} deleteManager={deleteManager} onGameweekChange={setCurrentGameweek} />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
   );
@@ -53,13 +48,15 @@ const AppContent = () => {
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <TooltipProvider>
-      <Toaster />
-      <Sonner />
-      <BrowserRouter>
-        <AppContent />
-      </BrowserRouter>
-    </TooltipProvider>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+      <TooltipProvider>
+        <Toaster />
+        <Sonner />
+        <BrowserRouter>
+          <AppContent />
+        </BrowserRouter>
+      </TooltipProvider>
+    </ThemeProvider>
   </QueryClientProvider>
 );
 

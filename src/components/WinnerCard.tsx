@@ -35,7 +35,7 @@ export const WinnerCard = ({ players, currentGameweek }: WinnerCardProps) => {
       const timer = setTimeout(() => setShowConfetti(false), 3000);
       return () => clearTimeout(timer);
     }
-  }, [winner]);
+  }, [winner, currentGameweek, players]);
 
   if (!winner) {
     return (
