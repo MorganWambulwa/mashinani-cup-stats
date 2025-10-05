@@ -148,10 +148,10 @@ const Index = ({ players, currentGameweek, winner, updatePayment, updateGameweek
           <WinnerCard players={players} currentGameweek={currentGameweek} />
         </section>
 
-        {/* Info Slider */}
-        <section>
+        {/* Info Slider - Temporarily removed */}
+        {/* <section>
           <InfoSlider />
-        </section>
+        </section> */}
 
         {/* Page Content */}
         {currentPath === '/' && <Players players={players} currentGameweek={currentGameweek} winner={winner} />}
