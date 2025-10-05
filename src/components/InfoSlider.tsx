@@ -59,7 +59,7 @@ export const InfoSlider = () => {
     >
       <Card className="overflow-hidden bg-gradient-to-br from-card to-muted">
         <CardContent className="p-0">
-          <div className="relative h-48 sm:h-52 md:h-56 flex items-center justify-center p-4">
+          <div className="relative h-52 sm:h-56 md:h-60 flex items-center justify-center p-4">
             {slides.map((slide, index) => (
               <div
                 key={index}
@@ -71,16 +71,18 @@ export const InfoSlider = () => {
                       : 'opacity-0 transform translate-x-full scale-95'
                 }`}
               >
-                <div className={`h-full flex flex-col items-center justify-center text-center bg-gradient-to-br ${slide.gradient} rounded-lg p-4 sm:p-6 text-white overflow-y-auto`}>
-                  <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-white/20 rounded-full flex-shrink-0">
-                    <div className="w-6 h-6 sm:w-8 sm:h-8">
-                      {slide.icon}
+                <div className={`h-full flex flex-col items-center justify-start text-center bg-gradient-to-br ${slide.gradient} rounded-lg p-4 sm:p-5 text-white overflow-y-auto`}>
+                  {index !== 1 && (
+                    <div className="mb-2 sm:mb-3 p-2 sm:p-3 bg-white/20 rounded-full flex-shrink-0">
+                      <div className="w-6 h-6 sm:w-8 sm:h-8">
+                        {slide.icon}
+                      </div>
                     </div>
-                  </div>
-                  <h3 className="font-orbitron text-base sm:text-xl font-bold mb-2 sm:mb-3 flex-shrink-0">
+                  )}
+                  <h3 className="font-orbitron text-sm sm:text-base font-bold mb-2 sm:mb-3 flex-shrink-0">
                     {slide.title}
                   </h3>
-                  <div className="text-xs sm:text-sm text-white/90 leading-relaxed whitespace-pre-line flex-1 overflow-y-auto">
+                  <div className="text-xs sm:text-sm text-white/95 leading-relaxed whitespace-pre-line flex-1 overflow-y-auto w-full text-left px-2">
                     {slide.content}
                     {index === 1 && !expanded && (
                       <button 
@@ -88,7 +90,7 @@ export const InfoSlider = () => {
                           e.stopPropagation();
                           setExpanded(true);
                         }}
-                        className="block mt-2 text-white font-semibold underline hover:text-white/80 transition-colors"
+                        className="block mt-2 text-white font-semibold underline hover:text-white/80 transition-colors text-center w-full"
                       >
                         see more...
                       </button>
@@ -99,7 +101,7 @@ export const InfoSlider = () => {
                           e.stopPropagation();
                           setExpanded(false);
                         }}
-                        className="block mt-2 text-white font-semibold underline hover:text-white/80 transition-colors"
+                        className="block mt-2 text-white font-semibold underline hover:text-white/80 transition-colors text-center w-full"
                       >
                         see less
                       </button>
