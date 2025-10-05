@@ -26,8 +26,8 @@ export const InfoSlider = () => {
       icon: <Info className="w-8 h-8" />,
       title: "MASHINANI LEAGUE CUP RULES",
       content: expanded 
-        ? "Competition Format:\nWinner Takes All - Manager with highest net points (chips included) each gameweek wins the pot. In case of a tie, the prize is shared equally.\n\nPayments:\nEntry fee: 100/- per manager per gameweek. All payments must be made before the gameweek deadline. Advance payments for multiple gameweeks are allowed. Late payments attract a fine of 50/-. Dropping out requires full settlement of remaining gameweeks.\n\nPayment number: 0794539704"
-        : "Competition Format:\nWinner Takes All - Manager with highest net points (chips included) each gameweek wins the pot. In case of a tie, the prize is shared equally...",
+        ? "Competition Format:\n• Winner Takes All - Manager with highest net points (chips included) each gameweek wins the pot\n• In case of a tie, the prize is shared equally\n\nPayments:\n• Entry fee: 100/- per manager per gameweek\n• All payments must be made before the gameweek deadline\n• Advance payments for multiple gameweeks are allowed\n• Late payments attract a fine of 50/-\n• Dropping out requires full settlement of remaining gameweeks\n\nPayment number: 0794539704"
+        : "Competition Format:\n• Winner Takes All - Manager with highest net points (chips included) each gameweek wins the pot\n• In case of a tie, the prize is shared equally...",
       gradient: "from-primary to-primary-glow"
     }
   ];
