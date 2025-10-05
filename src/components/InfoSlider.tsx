@@ -57,9 +57,9 @@ export const InfoSlider = () => {
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      <Card className="overflow-hidden bg-gradient-to-br from-card to-muted">
+      <Card className="overflow-hidden border-muted/50 shadow-lg hover:shadow-xl transition-shadow duration-300">
         <CardContent className="p-0">
-          <div className="relative h-52 sm:h-56 md:h-60 flex items-center justify-center p-4">
+          <div className="relative h-44 sm:h-48 md:h-52 flex items-center justify-center p-4">
             {slides.map((slide, index) => (
               <div
                 key={index}
