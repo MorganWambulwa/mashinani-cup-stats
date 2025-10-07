@@ -2,6 +2,7 @@ import { PaymentCard } from '@/components/PaymentCard';
 import { PaymentHistory } from '@/components/PaymentHistory';
 import { PrizePool } from '@/components/PrizePool';
 import { Player } from '@/types';
+import { useAdminCheck } from '@/hooks/useAdminCheck';
 
 interface PaymentsProps {
   players: Player[];
@@ -9,6 +10,8 @@ interface PaymentsProps {
 }
 
 const Payments = ({ players, onUpdatePayment }: PaymentsProps) => {
+  const { isAdmin, loading } = useAdminCheck();
+
   return (
     <section className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
@@ -18,7 +21,7 @@ const Payments = ({ players, onUpdatePayment }: PaymentsProps) => {
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         <PrizePool />
-        <PaymentHistory />
+        {!loading && isAdmin && <PaymentHistory />}
       </div>
       
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">

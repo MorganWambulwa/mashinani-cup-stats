@@ -74,9 +74,7 @@ export function PrizePool() {
   }
 
   const prizeDistribution = {
-    winner: Math.floor(activeSeason.total_prize_pool * 0.7),
-    runnerUp: Math.floor(activeSeason.total_prize_pool * 0.2),
-    third: Math.floor(activeSeason.total_prize_pool * 0.1)
+    winner: activeSeason.total_prize_pool
   };
 
   return (
@@ -97,16 +95,8 @@ export function PrizePool() {
           <h4 className="font-semibold">Prize Distribution:</h4>
           <div className="space-y-1 text-sm">
             <div className="flex justify-between">
-              <span>🥇 Winner (70%):</span>
+              <span>🥇 Winner (100%):</span>
               <span className="font-medium">KSh {prizeDistribution.winner.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>🥈 Runner-up (20%):</span>
-              <span className="font-medium">KSh {prizeDistribution.runnerUp.toLocaleString()}</span>
-            </div>
-            <div className="flex justify-between">
-              <span>🥉 Third Place (10%):</span>
-              <span className="font-medium">KSh {prizeDistribution.third.toLocaleString()}</span>
             </div>
           </div>
         </div>
