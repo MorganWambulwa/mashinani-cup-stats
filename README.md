@@ -1,128 +1,137 @@
 # Mashinani League Cup
 
-A community-driven fantasy football web application that allows users to create teams, join leagues, and track performance in the Mashinani League Cup.
+Welcome to **Mashinani League Cup**, a community-driven fantasy football web app where football fans can create teams, join leagues, and track performance in a fun and interactive way.
 
-Live site: [https://mashinani-league-cup.vercel.app/](https://mashinani-league-cup.vercel.app/)
+Check out the live site here: [https://mashinani-league-cup.vercel.app/](https://mashinani-league-cup.vercel.app/)
+
+---
 
 ## Table of Contents
-- [Project Overview](#project-overview)
-- [Features](#features)
+- [What This Project Is About](#what-this-project-is-about)
+- [What You Can Do](#what-you-can-do)
 - [Tech Stack](#tech-stack)
-- [Installation & Setup](#installation--setup)
-- [Usage](#usage)
+- [Getting Started](#getting-started)
+- [How to Use](#how-to-use)
 - [Project Structure](#project-structure)
 - [Contributing](#contributing)
 - [License](#license)
-- [Future Enhancements](#future-enhancements)
+- [Plans for the Future](#plans-for-the-future)
 
-## Project Overview
-Mashinani League Cup provides a platform for football fans to engage in fantasy leagues by:
-- Creating or joining leagues
-- Building and managing teams
-- Tracking player performance with live points
-- Viewing league leaderboards and statistics
+---
 
-The platform promotes community engagement and gamified football experience for users.
+## What This Project Is About
+Mashinani League Cup lets football fans enjoy a fantasy league experience with their friends or the wider community. You can:
+- Join or create your own leagues
+- Pick your squad and manage your team
+- Track live points based on real player performances
+- See how you rank on leaderboards
 
-## Features
-- **User Authentication:** Secure sign-up and login
-- **League Management:** Create, join, and manage leagues
-- **Team Management:** Build squads and make transfers
-- **Live Points Tracking:** Points calculated based on player performance
-- **Leaderboards:** Track top performers per league
-- **Responsive Design:** Optimized for desktop and mobile
+The goal is to make following football more engaging and social.
+
+---
+
+## What You Can Do
+- **Sign up and log in** safely to your account  
+- **Create or join leagues** and compete with friends  
+- **Manage your team** – pick players and make transfers  
+- **Track performance** – watch your points grow in real-time  
+- **Check leaderboards** – see how you stack up against others  
+
+---
 
 ## Tech Stack
-- **Frontend:** Vite + React + TypeScript
-- **UI Library:** shadcn/ui
-- **Styling:** Tailwind CSS, PostCSS
-- **Backend / Database:** Supabase (for authentication, database, and policies)
-- **Build / Config:** Vite, tsconfig
-- **Linting / Formatting:** ESLint
+- **Frontend:** React + Vite + TypeScript  
+- **UI Library:** shadcn/ui  
+- **Styling:** Tailwind CSS, PostCSS  
+- **Backend / Database:** Supabase for authentication and data  
+- **Build & Config:** Vite, TypeScript configs  
+- **Linting & Formatting:** ESLint  
 
-## Installation & Setup
-1. **Clone the repository:**
+---
+
+## Getting Started
+1. **Clone the project**
 
 ```bash
 git clone https://github.com/MorganWambulwa/mashinani-cup-stats.git
 cd mashinani-league-cup
-Install dependencies:
+Install dependencies
 
 bash
 Copy code
 npm install
 # or
 yarn install
-Configure environment variables:
+Set up environment variables
 
-Create a .env file with your Supabase URL, keys, and other sensitive configuration variables. Do not include .env in version control.
+Create a .env file and add your Supabase URL, keys, and any other necessary secrets. Remember: never commit .env to version control.
 
-Run the app locally:
+Run the app locally
 
 bash
 Copy code
 npm run dev
 # or
 yarn dev
-Open http://localhost:5173 in your browser.
+Visit http://localhost:5173 to see the app in action.
 
-Usage
-Sign Up / Log In: Access your account using email or Supabase authentication
+How to Use
+Sign up or log in
 
-Create a League: Set up a league and invite friends
+Create a league or join an existing one
 
-Join a League: Enter a code to join an existing league
+Pick your team within your budget
 
-Build Your Team: Select players within your budget and rules
+Watch points update live
 
-Track Performance: View live points and standings
+Compare yourself on the leaderboard
 
-Check Leaderboards: Compare your performance with other users
+It’s simple and interactive—perfect for friendly competitions.
 
 Project Structure
-bash
+graphql
 Copy code
-public/                 # Static assets like images and icons
-components.json         # Component metadata or config
-.env                    # Environment variables (not committed)
-.gitignore              # Ignored files for git
+public/                 # Static assets (images, icons, etc.)
+components.json         # Component metadata/config
+.env                    # Local environment variables (not committed)
+.gitignore              # Git ignore rules
 README.md               # Project README
-bun.lockb               # Bun package manager lock file
-eslint.config.js        # ESLint configuration
+bun.lockb               # Bun package lock file
+eslint.config.js        # ESLint setup
 index.html              # Main HTML file
 package-lock.json       # npm lock file
 package.json            # Project dependencies and scripts
 postcss.config.js       # PostCSS configuration
 tailwind.config.ts      # Tailwind CSS configuration
-tsconfig.app.json       # TypeScript configuration for the app
-tsconfig.json           # TypeScript base configuration
-tsconfig.node.json      # TypeScript configuration for Node.js
-vite.config.ts          # Vite configuration file
+tsconfig.app.json       # TypeScript config for app
+tsconfig.json           # Base TypeScript config
+tsconfig.node.json      # TypeScript config for Node
+vite.config.ts          # Vite configuration
 Contributing
-Fork the repository
+If you want to help make this project better:
 
-Create a new branch (git checkout -b feature/your-feature)
+Fork the repo
 
-Make your changes
+Make a new branch for your feature (git checkout -b feature/my-feature)
 
-Commit your changes (git commit -m "Add feature")
+Make your changes and commit (git commit -m "Add some feature")
 
-Push to your branch (git push origin feature/your-feature)
+Push to your branch (git push origin feature/my-feature)
 
 Open a Pull Request
 
-Follow the project’s coding standards and include tests where necessary.
+We welcome contributions, improvements, or even just suggestions!
 
 License
-MIT License - see LICENSE for details.
+This project is open source under the MIT License. See LICENSE for details.
 
-Future Enhancements
-Mobile companion app for iOS and Android
+Plans for the Future
+Mobile app version for iOS and Android
 
-Advanced analytics for player performance
+More advanced stats for players and teams
 
 Social features like chat and messaging
 
 Push notifications for match updates
 
-Multi-language support
+Support for multiple languages
