@@ -1,102 +1,72 @@
-Mashinani League Cup
+# Mashinani League Cup
 
 A community-driven fantasy football web application that allows users to create teams, join leagues, and track performance in the Mashinani League Cup.
 
-Live site: https://mashinani-league-cup.vercel.app/
+Live site: [https://mashinani-league-cup.vercel.app/](https://mashinani-league-cup.vercel.app/)
 
-Table of Contents
+## Table of Contents
+- [Project Overview](#project-overview)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Installation & Setup](#installation--setup)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
+- [Contributing](#contributing)
+- [License](#license)
+- [Future Enhancements](#future-enhancements)
 
-Project Overview
-
-Features
-
-Tech Stack
-
-Installation & Setup
-
-Usage
-
-Project Structure
-
-Contributing
-
-License
-
-Future Enhancements
-
-Project Overview
-
+## Project Overview
 Mashinani League Cup provides a platform for football fans to engage in fantasy leagues by:
-
-Creating or joining leagues
-
-Building and managing teams
-
-Tracking player performance with live points
-
-Viewing league leaderboards and statistics
+- Creating or joining leagues
+- Building and managing teams
+- Tracking player performance with live points
+- Viewing league leaderboards and statistics
 
 The platform promotes community engagement and gamified football experience for users.
 
-Features
+## Features
+- **User Authentication:** Secure sign-up and login
+- **League Management:** Create, join, and manage leagues
+- **Team Management:** Build squads and make transfers
+- **Live Points Tracking:** Points calculated based on player performance
+- **Leaderboards:** Track top performers per league
+- **Responsive Design:** Optimized for desktop and mobile
 
-User Authentication: Secure sign-up and login
+## Tech Stack
+- **Frontend:** Vite + React + TypeScript
+- **UI Library:** shadcn/ui
+- **Styling:** Tailwind CSS, PostCSS
+- **Backend / Database:** Supabase (for authentication, database, and policies)
+- **Build / Config:** Vite, tsconfig
+- **Linting / Formatting:** ESLint
 
-League Management: Create, join, and manage leagues
+## Installation & Setup
+1. **Clone the repository:**
 
-Team Management: Build squads and make transfers
-
-Live Points Tracking: Points calculated based on player performance
-
-Leaderboards: Track top performers per league
-
-Responsive Design: Optimized for desktop and mobile
-
-Tech Stack
-
-Frontend: Vite + React + TypeScript
-
-UI Library: shadcn/ui
-
-Styling: Tailwind CSS, PostCSS
-
-Backend / Database: Supabase (for authentication, database, and policies)
-
-Build / Config: Vite, tsconfig
-
-Linting / Formatting: ESLint
-
-Installation & Setup
-
-Clone the repository:
-
+```bash
 git clone https://github.com/MorganWambulwa/mashinani-cup-stats.git
 cd mashinani-league-cup
-
-
 Install dependencies:
 
+bash
+Copy code
 npm install
 # or
 yarn install
-
-
 Configure environment variables:
 
 Create a .env file with your Supabase URL, keys, and other sensitive configuration variables. Do not include .env in version control.
 
 Run the app locally:
 
+bash
+Copy code
 npm run dev
 # or
 yarn dev
-
-
-Open http://localhost:5173
- in your browser (Vite default).
+Open http://localhost:5173 in your browser.
 
 Usage
-
 Sign Up / Log In: Access your account using email or Supabase authentication
 
 Create a League: Set up a league and invite friends
@@ -110,6 +80,8 @@ Track Performance: View live points and standings
 Check Leaderboards: Compare your performance with other users
 
 Project Structure
+bash
+Copy code
 public/                 # Static assets like images and icons
 components.json         # Component metadata or config
 .env                    # Environment variables (not committed)
@@ -126,9 +98,7 @@ tsconfig.app.json       # TypeScript configuration for the app
 tsconfig.json           # TypeScript base configuration
 tsconfig.node.json      # TypeScript configuration for Node.js
 vite.config.ts          # Vite configuration file
-
 Contributing
-
 Fork the repository
 
 Create a new branch (git checkout -b feature/your-feature)
@@ -144,12 +114,9 @@ Open a Pull Request
 Follow the project’s coding standards and include tests where necessary.
 
 License
-
-MIT License - see LICENSE
- for details.
+MIT License - see LICENSE for details.
 
 Future Enhancements
-
 Mobile companion app for iOS and Android
 
 Advanced analytics for player performance
