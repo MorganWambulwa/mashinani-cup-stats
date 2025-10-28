@@ -1,73 +1,161 @@
-# Welcome to your Lovable project
+Mashinani League Cup
 
-## Project info
+A community-driven fantasy football web application that allows users to create teams, join leagues, and track performance in the Mashinani League Cup.
 
-**URL**: https://lovable.dev/projects/7f76ab5c-7777-453d-a8ff-4d80d93dc1a9
+Live site: https://mashinani-league-cup.vercel.app/
 
-## How can I edit this code?
+Table of Contents
 
-There are several ways of editing your application.
+Project Overview
 
-**Use Lovable**
+Features
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/7f76ab5c-7777-453d-a8ff-4d80d93dc1a9) and start prompting.
+Tech Stack
 
-Changes made via Lovable will be committed automatically to this repo.
+Installation & Setup
 
-**Use your preferred IDE**
+Usage
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Project Structure
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Contributing
 
-Follow these steps:
+License
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+Future Enhancements
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+Project Overview
 
-# Step 3: Install the necessary dependencies.
-npm i
+Mashinani League Cup provides a platform for football fans to engage in fantasy leagues by:
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
+Creating or joining leagues
+
+Building and managing teams
+
+Tracking player performance with live points
+
+Viewing league leaderboards and statistics
+
+The platform promotes community engagement and gamified football experience for users.
+
+Features
+
+User Authentication: Secure sign-up and login
+
+League Management: Create, join, and manage leagues
+
+Team Management: Build squads and make transfers
+
+Live Points Tracking: Points calculated based on player performance
+
+Leaderboards: Track top performers per league
+
+Responsive Design: Optimized for desktop and mobile
+
+Tech Stack
+
+Frontend: Vite + React + TypeScript
+
+UI Library: shadcn/ui
+
+Styling: Tailwind CSS, PostCSS
+
+Backend / Database: Supabase (for authentication, database, and policies)
+
+Build / Config: Vite, tsconfig
+
+Linting / Formatting: ESLint
+
+Installation & Setup
+
+Clone the repository:
+
+git clone https://github.com/MorganWambulwa/mashinani-cup-stats.git
+cd mashinani-league-cup
+
+
+Install dependencies:
+
+npm install
+# or
+yarn install
+
+
+Configure environment variables:
+
+Create a .env file with your Supabase URL, keys, and other sensitive configuration variables. Do not include .env in version control.
+
+Run the app locally:
+
 npm run dev
-```
+# or
+yarn dev
 
-**Edit a file directly in GitHub**
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Open http://localhost:5173
+ in your browser (Vite default).
 
-**Use GitHub Codespaces**
+Usage
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Sign Up / Log In: Access your account using email or Supabase authentication
 
-## What technologies are used for this project?
+Create a League: Set up a league and invite friends
 
-This project is built with:
+Join a League: Enter a code to join an existing league
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+Build Your Team: Select players within your budget and rules
 
-## How can I deploy this project?
+Track Performance: View live points and standings
 
-Simply open [Lovable](https://lovable.dev/projects/7f76ab5c-7777-453d-a8ff-4d80d93dc1a9) and click on Share -> Publish.
+Check Leaderboards: Compare your performance with other users
 
-## Can I connect a custom domain to my Lovable project?
+Project Structure
+public/                 # Static assets like images and icons
+components.json         # Component metadata or config
+.env                    # Environment variables (not committed)
+.gitignore              # Ignored files for git
+README.md               # Project README
+bun.lockb               # Bun package manager lock file
+eslint.config.js        # ESLint configuration
+index.html              # Main HTML file
+package-lock.json       # npm lock file
+package.json            # Project dependencies and scripts
+postcss.config.js       # PostCSS configuration
+tailwind.config.ts      # Tailwind CSS configuration
+tsconfig.app.json       # TypeScript configuration for the app
+tsconfig.json           # TypeScript base configuration
+tsconfig.node.json      # TypeScript configuration for Node.js
+vite.config.ts          # Vite configuration file
 
-Yes, you can!
+Contributing
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
+Fork the repository
 
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+Create a new branch (git checkout -b feature/your-feature)
+
+Make your changes
+
+Commit your changes (git commit -m "Add feature")
+
+Push to your branch (git push origin feature/your-feature)
+
+Open a Pull Request
+
+Follow the project’s coding standards and include tests where necessary.
+
+License
+
+MIT License - see LICENSE
+ for details.
+
+Future Enhancements
+
+Mobile companion app for iOS and Android
+
+Advanced analytics for player performance
+
+Social features like chat and messaging
+
+Push notifications for match updates
+
+Multi-language support
